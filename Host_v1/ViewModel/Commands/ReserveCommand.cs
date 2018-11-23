@@ -44,6 +44,11 @@ namespace Host_v1.ViewModel.Commands
                           _cvm.db.SaveChanges();
                           _cvm.text = "";
                           MessageBox.Show("Номер забронирован!");
+                            _cvm.SelectedClient = null;
+                            _cvm.SelectedNumber = null;
+                            _cvm.SelectedWorker = null;
+                            _cvm.SelectedKatgory = null;
+                            _cvm.SelectedStatus = null;
                         }
                         else _cvm.text = "Период проживания указан неправильно!";
                     }

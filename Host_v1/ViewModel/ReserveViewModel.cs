@@ -31,8 +31,8 @@ namespace Host_v1.ViewModel
         public ObservableCollection<Worker> worker { get; set; }
         private Worker selectedWorker;
 
-        //private DateTime Date_start;
-        //private DateTime Date_finish;
+        public int Sum { get; set; }
+
         private string text_;
         public string text
         {
@@ -66,25 +66,6 @@ namespace Host_v1.ViewModel
                 return reserve;
             }
         }
-        //public DateTime date_start
-        //{
-        //    get { return Date_start; }
-        //    set
-        //    {
-        //        Date_start = value;
-        //        OnPropertyChanged("date_start");
-        //    }
-        //}
-
-        //public DateTime date_finish
-        //{
-        //    get { return Date_finish; }
-        //    set
-        //    {
-        //        Date_finish = value;
-        //        OnPropertyChanged("date_finish");
-        //    }
-        //}
         public Status SelectedStatus
         {
             get { return selectedStatus; }
@@ -133,7 +114,10 @@ namespace Host_v1.ViewModel
             {
                 selectedKatgory = value;
                 Numbers = new ObservableCollection<Number>(numbers.Where(u => u.Kategory == SelectedKatgory && u.Status == SelectedStatus).ToList());
+                Sum = SelectedKatgory.Cost * (uchet.date_finish - uchet.date_start).Days;
                 OnPropertyChanged("SelectedKatgory");
+                OnPropertyChanged("Sum");
+
             }
         }
         public Client SelectedClient
