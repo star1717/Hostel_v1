@@ -32,7 +32,7 @@
         <Button Command="{Binding OpenReserveView}" Content="Забронировать номер" HorizontalAlignment="Left" Margin="22,103,0,0" VerticalAlignment="Top" Width="202" RenderTransformOrigin="0.111,1.646" Height="41" Background="#FF70B4DB"/>
         <Button Content="Проживание" HorizontalAlignment="Left" Margin="22,40,0,0" VerticalAlignment="Top" Width="202" Height="41" Background="#FF70B4DB" Foreground="Black"/>
         <Button Content="Услуги" HorizontalAlignment="Left" Margin="22,297,0,0" VerticalAlignment="Top" Width="202" Height="41"/>
-        <Button Content="Оказать услугу" HorizontalAlignment="Left" Margin="22,167,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#FF70B4DB"/>
+        <Button Command="{Binding OpenLogView}" Content="Оказать услугу" HorizontalAlignment="Left" Margin="22,167,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#FF70B4DB"/>
         <Button Margin="492,10,0,0" Height="49" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF3387EC" RenderTransformOrigin="-7.72,2.224">
 
             <Style TargetType="Ellipse" >

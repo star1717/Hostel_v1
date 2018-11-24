@@ -17,7 +17,21 @@ namespace Host_v1
     class MainViewModel1 : INotifyPropertyChanged
     {
         public Model1 db = new Model1();       
-        public event PropertyChangedEventHandler PropertyChanged;       
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private ICommand openLogView;
+        public ICommand OpenLogView
+        {
+            get
+            {
+                if (openLogView == null)
+                {
+                    openLogView = new OpenLogViewCommand(this);
+                }
+                return openLogView;
+            }
+        }
+
         private ICommand openClientView;
         public ICommand OpenClientView
         {
