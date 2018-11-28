@@ -16,9 +16,37 @@ namespace Host_v1
 {
     class MainViewModel1 : INotifyPropertyChanged
     {
-        public Model1 db = new Model1();       
+        public Model1 db;
+        public MainViewModel1(Model1 db)
+        {
+            this.db = db;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public Action CloseAction { get; set; }
+        private ICommand openPasswordView;
+        public ICommand OpenPasswordView
+        {
+            get
+            {
+                if (openPasswordView == null)
+                {
+                    openPasswordView = new OpenPasswordViewCommand(this);
+                }
+                return openPasswordView;
+            }
+        }
+        private ICommand openNumbersView;
+        public ICommand OpenNumbersView
+        {
+            get
+            {
+                if (openNumbersView == null)
+                {
+                    openNumbersView = new OpenNumbersViewCommand(this);
+                }
+                return openNumbersView;
+            }
+        }
         private ICommand openLogView;
         public ICommand OpenLogView
         {

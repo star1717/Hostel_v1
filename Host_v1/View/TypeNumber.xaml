@@ -20,7 +20,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid >
-        <ListBox Grid.Column="0" ItemsSource="{Binding kategory}" SelectedItem="{Binding SelectedKategory}" Margin="24,40,414,43" RenderTransformOrigin="0.472,0.711">
+        <ListBox Grid.Column="0" ItemsSource="{Binding kategory}" SelectedItem="{Binding SelectedKategory}" Margin="24,40,454,43" RenderTransformOrigin="0.472,0.711">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
@@ -28,29 +28,59 @@
                         <TextBlock Text="Описание: "> <TextBlock Text="{Binding Path=Description}" /> </TextBlock>
                         <TextBlock Text="Вместимость: " VerticalAlignment="Top"> <TextBlock Text="{Binding Path=Capacity}" /> </TextBlock>
                         <TextBlock Text="Цена: "> <TextBlock Text="{Binding Path=Cost}" /></TextBlock>
-                        <!--<Image Source="{Binding Photo}"></Image>-->
+                        
                         <ListBoxItem>
-                            <StackPanel>
-                                <Image Source="{Binding Photo}"></Image>
+                            <StackPanel >
+                                <Image Source="{Binding Photo}" Height="173" Margin="10,0"></Image>
                             </StackPanel>
                         </ListBoxItem>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel DataContext="{Binding SelectedKategory}" HorizontalAlignment="Left" Height="427" Margin="420,40,0,0" VerticalAlignment="Top" Width="388">
+        <StackPanel DataContext="{Binding SelectedKategory}" HorizontalAlignment="Left" Height="363" Margin="420,40,0,0" VerticalAlignment="Top" Width="388">
             <TextBlock Margin="0,2,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="18" Text="Имя" Foreground="White"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
             <TextBlock Text="Описание" Margin="0,2,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
-            <TextBox Height="23" TextWrapping="Wrap" Margin="10,0" SpellCheck.IsEnabled="True" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Height="23" TextWrapping="Wrap" Margin="10,0" SpellCheck.IsEnabled="True" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                        <Style.Resources>
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="Нет описания" Foreground="LightGray" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
             <TextBlock TextWrapping="Wrap"  Margin="10,0" Text="Вместимость" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Capacity, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
             <TextBlock TextWrapping="Wrap" Text="Цена" Margin="10,0" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
             <TextBlock TextWrapping="Wrap" Text="Фото" Margin="10,0" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
-            <Image Height="173" Margin="10,0" Source="{Binding Photo}"/>
-            <Button Content="Выбрать фото" Margin="10,0,228,0"/>
+            <Image Height="173" Margin="10,0" Source="{Binding Photo, UpdateSourceTrigger=PropertyChanged}"/>
+            
         </StackPanel>
+        <Button Content="Выбрать фото" Margin="431,418,19,60">
+            <Button.ToolTip>
+                <ToolTip>
+                    Загрузить фото
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
         <Label Content="Справочник типов номеров" HorizontalAlignment="Left" Margin="24,5,0,0" VerticalAlignment="Top" Width="393" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

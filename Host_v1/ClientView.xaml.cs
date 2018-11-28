@@ -1,6 +1,8 @@
 ﻿using Host_v1.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +22,24 @@ namespace Host_v1
     /// </summary>
     public partial class AddClient : Window
     {
+        private const string Filename = "C://Users/vikul/source/repos/Host_v1/Host_v1/Images/+.png";
+
         public AddClient(Model1 db)
         {
             InitializeComponent();
             DataContext = new ClientViewModel(db);
+            Kategory kat = db.Kategory.Find(1);
+
+            System.Drawing.Image img = System.Drawing.Image.FromFile(Filename);
+            MemoryStream tmpStream = new MemoryStream();
+            img.Save(tmpStream, ImageFormat.Png); // change to other format
+            tmpStream.Seek(0, SeekOrigin.Begin);
+            byte[] imgBytes = new byte[80000];
+            tmpStream.Read(imgBytes, 0, 80000);
+
+            kat.photo = imgBytes;
+
+            db.SaveChanges();
         }
     }
 }

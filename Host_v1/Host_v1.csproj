@@ -90,8 +90,9 @@
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Kategory.cs" />
     <Compile Include="Model\Log.cs" />
-    <Compile Include="Model\Model1.cs" />
+    <Compile Include="EF\Model1.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
+    <Compile Include="ViewModel\Commands\CreateReportCommand.cs" />
     <Compile Include="ViewModel\Commands\MyCommand.cs" />
     <Compile Include="Model\Number.cs" />
     <Compile Include="Model\Pay.cs" />
@@ -100,23 +101,43 @@
     <Compile Include="Model\Uchet.cs" />
     <Compile Include="ViewModel\Commands\OpenClientViewCommand.cs" />
     <Compile Include="ViewModel\Commands\OpenLogViewCommand.cs" />
+    <Compile Include="ViewModel\Commands\OpenNumbersViewCommand.cs" />
+    <Compile Include="ViewModel\Commands\OpenPasswordViewCommand.cs" />
+    <Compile Include="ViewModel\Commands\OpenPasswordViewCommand2.cs" />
     <Compile Include="ViewModel\Commands\OpenTypeNumberViewCommand.cs" />
     <Compile Include="ViewModel\Commands\PasswordCommand.cs" />
     <Compile Include="ViewModel\Commands\RemoveClientCommand.cs" />
     <Compile Include="ViewModel\Commands\ReserveCommand.cs" />
     <Compile Include="ViewModel\Commands\SaveClientsCommand.cs" />
+    <Compile Include="ViewModel\Commands\SaveLogCommand.cs" />
+    <Compile Include="ViewModel\Commands\SaveNumbersCommand.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel1.cs" />
     <Compile Include="Model\Worker.cs" />
     <Compile Include="ViewModel\Commands\OpenReserveViewCommand.cs" />
+    <Compile Include="ViewModel\MainViewModel2.cs" />
+    <Compile Include="ViewModel\NumbersViewModel.cs" />
     <Compile Include="ViewModel\PasswordViewModel.cs" />
+    <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\ReserveViewModel.cs" />
     <Compile Include="ViewModel\TypeNumberViewModel.cs" />
     <Compile Include="View\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainWindow1.xaml.cs">
+      <DependentUpon>MainWindow1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow2.xaml.cs">
+      <DependentUpon>MainWindow2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NumbersView.xaml.cs">
+      <DependentUpon>NumbersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Password.xaml.cs">
       <DependentUpon>Password.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReportView.xaml.cs">
+      <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ReserveView.xaml.cs">
       <DependentUpon>ReserveView.xaml</DependentUpon>
@@ -128,23 +149,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NumbersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Password.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,6 +230,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\lev.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\hotel.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

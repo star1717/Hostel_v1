@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.View;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -31,7 +32,19 @@ namespace Host_v1.ViewModel
                     {
                     selectedUsers.FirstOrDefault().input = true;
                      MessageBox.Show("Добро пожаловать, "+selectedUsers.FirstOrDefault().FIO.TrimEnd()+" <3"); // говорим, что авторизовался
+                    if (selectedUsers.FirstOrDefault().position.TrimEnd() == "Администратор")
+                    {
+                        MainWindow1 main = new MainWindow1(_cvm.db);
+                        main.Show();
                         _cvm.CloseAction();
+                    }
+                    else
+                    {
+                        MainWindow2 main = new MainWindow2(_cvm.db);
+                        main.Show();
+                        _cvm.CloseAction();
+                    }
+
                     }
                     else MessageBox.Show("Пожалуйста, повторите ввод логина и пароля!"); // выводим ошибку
             }                     

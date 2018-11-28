@@ -16,19 +16,14 @@ using System.Windows.Shapes;
 namespace Host_v1.View
 {
     /// <summary>
-    /// Логика взаимодействия для Password.xaml
+    /// Логика взаимодействия для NumbersView.xaml
     /// </summary>
-    public partial class Password : Window
+    public partial class NumbersView : Window
     {
-        public Password()
+        public NumbersView(Model1 db)
         {
             InitializeComponent();
-           
-            PasswordViewModel vm=new PasswordViewModel();
-            DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(this.Close);
-          
+            DataContext = new NumbersViewModel(db);
         }
     }
 }

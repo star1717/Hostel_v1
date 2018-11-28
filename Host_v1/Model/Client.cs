@@ -56,16 +56,6 @@ namespace Host_v1
                 OnPropertyChanged("Passport");
             }
         }
-        //[NotMapped]
-        //public string FioPassport
-        //{
-        //    get { return FIO+" "+passport; }
-        //    //set
-        //    //{
-        //    //    passport = value;
-        //    //    OnPropertyChanged("FioPassport");
-        //    //}
-        //}
         [NotMapped]
         public string Number
         {

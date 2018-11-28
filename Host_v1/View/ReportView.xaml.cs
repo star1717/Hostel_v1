@@ -1,5 +1,4 @@
-﻿using Host_v1.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,19 +15,13 @@ using System.Windows.Shapes;
 namespace Host_v1.View
 {
     /// <summary>
-    /// Логика взаимодействия для Password.xaml
+    /// Логика взаимодействия для Report.xaml
     /// </summary>
-    public partial class Password : Window
+    public partial class Report : Window
     {
-        public Password()
+        public Report()
         {
             InitializeComponent();
-           
-            PasswordViewModel vm=new PasswordViewModel();
-            DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(this.Close);
-          
         }
     }
 }

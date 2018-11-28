@@ -17,6 +17,7 @@
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.FontSize" Value="18"></Setter>
             <Setter Property="Control.Background" Value="#FF70B4DB"></Setter>
+            
         </Style>
     </Window.Resources>
     <Grid>

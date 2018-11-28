@@ -34,6 +34,7 @@ namespace Host_v1
 
         public int cost { get; set; }
 
+        [Column(TypeName = "Image")]
         public byte[] photo { get; set; }
         [NotMapped]
         public string Name
@@ -77,34 +78,35 @@ namespace Host_v1
         }
         private Image ph;
         [NotMapped]
-        public Image Photo
+        public BitmapImage Photo
         {
             set
             {
-                ph = value;
-                MemoryStream ms = new MemoryStream();
-                value.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                photo = ms.ToArray();
+                //ph = value;
+                //MemoryStream ms = new MemoryStream();
+                //value.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                //photo = ms.ToArray();
 
                 //photo = value;
                 OnPropertyChanged("Photo");
             }
             get
             {
-                if (ph == null)
-                {
-                    MemoryStream ms = new MemoryStream(photo);
-                    System.Drawing.Image returnImage = System.Drawing.Image.FromStream(ms);
-                    ph = returnImage;
-                }
-                return ph;
-                ////MemoryStream memorystream = new MemoryStream();
-                ////memorystream.Write(photo, 0, (int)photo.Length);
-                ////BitmapImage imgsource = new BitmapImage();
-                ////imgsource.BeginInit();
-                ////imgsource.StreamSource = memorystream;
-                ////imgsource.EndInit();
-                ////return imgsource;
+                //if (ph == null)
+                //{
+                    //MemoryStream ms = new MemoryStream(photo);
+                    //System.Drawing.Image returnImage = System.Drawing.Image.FromStream(ms);
+                    //ph = returnImage;
+                    //return Image.FromStream(new MemoryStream(photo));
+                //}
+                //return ph;
+                MemoryStream memorystream = new MemoryStream();
+                memorystream.Write(photo, 0, (int)photo.Length);
+                BitmapImage imgsource = new BitmapImage();
+                imgsource.BeginInit();
+                imgsource.StreamSource = memorystream;
+                imgsource.EndInit();
+                return imgsource;
             }
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

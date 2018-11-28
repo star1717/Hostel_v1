@@ -11,13 +11,12 @@ namespace Host_v1.ViewModel
 {
     class PasswordViewModel : INotifyPropertyChanged
     {
-        Model1 db;
+        public Model1 db = new Model1();
         public Action CloseAction { get; set; }
         public ObservableCollection<Worker> workers { get; set; }
         private Worker worker;
-        public PasswordViewModel(Model1 db)
-        {
-            this.db = db;
+        public PasswordViewModel()
+        {         
             workers = new ObservableCollection<Worker>(db.Worker);
             worker = new Worker();
         }

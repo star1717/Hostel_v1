@@ -23,14 +23,11 @@ namespace Host_v1.ViewModel
             if (_cvm.SelectedClient != null)
             {
               var client = _cvm.db.Clients.Find(_cvm.SelectedClient.ID_client);
-              if (client != null)
+              if (client == null)
               {
-                client.FIO = client.Fio;
-                client.number = client.Number;
-                client.passport = client.Passport;
-                client.birth = client.Birth;
+               _cvm.db.Clients.Add( _cvm.SelectedClient);
               }
-              else if (_cvm.SelectedClient!=null) _cvm.db.Clients.Add( _cvm.SelectedClient);
+              
               _cvm.db.SaveChanges();
               MessageBox.Show("Изменения сохранены!");
             }
