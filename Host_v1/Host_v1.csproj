@@ -100,6 +100,7 @@
     <Compile Include="Model\Uchet.cs" />
     <Compile Include="ViewModel\Commands\OpenClientViewCommand.cs" />
     <Compile Include="ViewModel\Commands\OpenLogViewCommand.cs" />
+    <Compile Include="ViewModel\Commands\OpenNumbersViewCommand.cs" />
     <Compile Include="ViewModel\Commands\OpenTypeNumberViewCommand.cs" />
     <Compile Include="ViewModel\Commands\PasswordCommand.cs" />
     <Compile Include="ViewModel\Commands\RemoveClientCommand.cs" />
@@ -109,11 +110,15 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\Worker.cs" />
     <Compile Include="ViewModel\Commands\OpenReserveViewCommand.cs" />
+    <Compile Include="ViewModel\NumbersViewModel.cs" />
     <Compile Include="ViewModel\PasswordViewModel.cs" />
     <Compile Include="ViewModel\ReserveViewModel.cs" />
     <Compile Include="ViewModel\TypeNumberViewModel.cs" />
     <Compile Include="View\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NumbersView.xaml.cs">
+      <DependentUpon>NumbersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Password.xaml.cs">
       <DependentUpon>Password.xaml</DependentUpon>
@@ -141,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NumbersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

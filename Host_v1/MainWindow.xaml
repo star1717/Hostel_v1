@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="481.487" Width="559.913">
-  
+        Title="MainWindow" Height="505.487" Width="559.913">
+
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.FontSize" Value="18"></Setter>
@@ -17,8 +17,8 @@
         <viewmodels:ViewModel/>
        
     </Window.DataContext>-->
-    <Grid Margin="0,0,0,1" >
-        
+    <Grid Margin="0,0,0,-6" >
+
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
@@ -27,12 +27,12 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Button Command="{Binding OpenClientView}" Content="Клиенты" HorizontalAlignment="Left" Margin="22,234,0,0" VerticalAlignment="Top" Width="202" Height="41"  Background="#FF70B4DB"/>
-        <Button Command="{Binding OpenTypeNumberView}" Content="Типы номеров" HorizontalAlignment="Left" Margin="22,357,0,0" VerticalAlignment="Top" Width="202" Height="41"/>
-        <Button Command="{Binding OpenReserveView}" Content="Забронировать номер" HorizontalAlignment="Left" Margin="22,103,0,0" VerticalAlignment="Top" Width="202" RenderTransformOrigin="0.111,1.646" Height="41" Background="#FF70B4DB"/>
-        <Button Content="Проживание" HorizontalAlignment="Left" Margin="22,40,0,0" VerticalAlignment="Top" Width="202" Height="41" Background="#FF70B4DB" Foreground="Black"/>
-        <Button Content="Услуги" HorizontalAlignment="Left" Margin="22,297,0,0" VerticalAlignment="Top" Width="202" Height="41"/>
-        <Button Command="{Binding OpenLogView}" Content="Оказать услугу" HorizontalAlignment="Left" Margin="22,167,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#FF70B4DB"/>
+        <Button Command="{Binding OpenClientView}" Content="Клиенты" HorizontalAlignment="Left" Margin="185,247,0,0" VerticalAlignment="Top" Width="202" Height="41"  Background="#FF70B4DB" BorderBrush="#FF040944"/>
+        <Button Command="{Binding OpenTypeNumberView}" Content="Типы номеров" HorizontalAlignment="Left" Margin="185,360,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944"/>
+        <Button Command="{Binding OpenReserveView}" Content="Забронировать номер" HorizontalAlignment="Left" Margin="185,137,0,0" VerticalAlignment="Top" Width="202" RenderTransformOrigin="0.111,1.646" Height="41" Background="#FF70B4DB" BorderBrush="#FF040944"/>
+        <Button Content="Проживание" HorizontalAlignment="Left" Margin="185,80,0,0" VerticalAlignment="Top" Width="202" Height="41" Background="#FF70B4DB" Foreground="Black" BorderBrush="#FF040944"/>
+        <Button Content="Услуги" HorizontalAlignment="Left" Margin="185,303,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944"/>
+        <Button Command="{Binding OpenLogView}" Content="Оказать услугу" HorizontalAlignment="Left" Margin="185,192,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#FF70B4DB" BorderBrush="#FF040944"/>
         <Button Margin="492,10,0,0" Height="49" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF3387EC" RenderTransformOrigin="-7.72,2.224">
 
             <Style TargetType="Ellipse" >
@@ -53,6 +53,15 @@
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
-        </Button>       
+        </Button>
+        <Button Command="{Binding OpenNumbersView}" Content="Номера" HorizontalAlignment="Left" Margin="185,418,0,0" VerticalAlignment="Top" Width="202" BorderBrush="#FF040944" Height="41"/>
+        <Label Content="Гостиница&#xD;&#xA;" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="129" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
+                    <GradientStop Color="#FF4253FD" Offset="0.54"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
     </Grid>
 </Window>

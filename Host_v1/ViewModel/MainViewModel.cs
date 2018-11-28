@@ -18,7 +18,18 @@ namespace Host_v1
     {
         public Model1 db = new Model1();       
         public event PropertyChangedEventHandler PropertyChanged;
-
+        private ICommand openNumbersView;
+        public ICommand OpenNumbersView
+        {
+            get
+            {
+                if (openNumbersView == null)
+                {
+                    openNumbersView = new OpenNumbersViewCommand(this);
+                }
+                return openNumbersView;
+            }
+        }
         private ICommand openLogView;
         public ICommand OpenLogView
         {

@@ -72,8 +72,7 @@
                 <ComboBox   
                 ItemsSource="{Binding clients}"
                 SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsSynchronizedWithCurrentItem="True"
-                    
+                IsSynchronizedWithCurrentItem="True"                    
                 DisplayMemberPath="Fio"
                 SelectedValuePath="ID_client" HorizontalAlignment="Left" Width="292" Margin="397,259,0,46" Grid.ColumnSpan="2"/>
           
@@ -83,8 +82,6 @@
                 <DataTemplate>
                     <StackPanel Margin="5">
                         <TextBlock  FontSize="18" Text="{Binding Path=Fio}" />
-           
-        
                         <TextBlock Text="Паспорт: "> <TextBlock Text="{Binding Path=Passport}" /> </TextBlock>
                         <TextBlock Text="Описание: "> <TextBlock Text="{Binding Path=ServiceName}"/></TextBlock>
                         <TextBlock Text="Сумма: "> <TextBlock Text="{Binding Path=Sum}" /></TextBlock>

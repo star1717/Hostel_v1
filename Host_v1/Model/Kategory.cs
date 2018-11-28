@@ -34,6 +34,7 @@ namespace Host_v1
 
         public int cost { get; set; }
 
+        [Column(TypeName = "Image")]
         public byte[] photo { get; set; }
         [NotMapped]
         public string Name
