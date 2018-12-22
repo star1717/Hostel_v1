@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,12 @@ namespace Host_v1.View
     /// <summary>
     /// Логика взаимодействия для Report.xaml
     /// </summary>
-    public partial class Report : Window
+    public partial class ReportView : Window
     {
-        public Report()
+        public ReportView()
         {
             InitializeComponent();
+        
         }
     }
 }

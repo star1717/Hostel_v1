@@ -13,13 +13,7 @@
             <GradientStop Color="Gainsboro" Offset="0.823"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Window.Resources>
-        <Style x:Key="{x:Type Button}">
-            <Setter Property="Control.FontSize" Value="18"></Setter>
-            <Setter Property="Control.Background" Value="#FF70B4DB"></Setter>
-            
-        </Style>
-    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="78*"/>
@@ -89,7 +83,7 @@
                 DisplayMemberPath="Fio"
                 SelectedValuePath="ID_worker"/>
         </StackPanel>
-        <Button Command="{Binding Reserve}" Content="Забронировать" HorizontalAlignment="Left" Margin="214,0,0,20" Width="189" Grid.ColumnSpan="2" Height="29" VerticalAlignment="Bottom"/>
+        <Button Command="{Binding Reserve}" Content="Забронировать" HorizontalAlignment="Left" Margin="214,0,0,25" Width="189" Grid.ColumnSpan="2" Height="29" VerticalAlignment="Bottom"/>
         <TextBlock Text="{Binding text}" HorizontalAlignment="Center" Margin="88,0,63,59" Foreground="#FFFD0000" FontSize="14" RenderTransformOrigin="0.5,0.5" Width="429" Grid.ColumnSpan="2" TextAlignment="Center" Height="20" VerticalAlignment="Bottom"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,242,0,0" TextWrapping="Wrap" Text="Стоимость проживания:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="149,242,0,0" TextWrapping="Wrap" Text="{Binding Sum}" VerticalAlignment="Top" Width="35" Height="16"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="LogView" Height="467" Width="800">
+        Title="Журнал услуг" Height="467" Width="800">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0.19"/>
@@ -19,51 +19,43 @@
             <ColumnDefinition Width="256*"/>
         </Grid.ColumnDefinitions>
 
-        <Button  Command="{Binding }"  HorizontalAlignment="Left" Margin="10,293,0,0" Width="47" Height="31" VerticalAlignment="Top">
+        <Button  Command="{Binding AddLog}"  HorizontalAlignment="Left" Margin="10,293,0,0" Width="47" Height="31" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse x:Name="ell" StrokeThickness="2" Stroke="#FF456FFF" Margin="0,0,0,-11" />
+                        <Ellipse x:Name="ell" Margin="0,0,0,-11" />
                         <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0,4,-11" Source="..\Images\+.png" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="FontWeight" Value="Bold" />
-                            <Setter TargetName="ell" Property="Fill" Value="#FF9EC6FF" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <StackPanel DataContext="{Binding SelectedLog}" Grid.Column="0"   Margin="381,-27,10,130" Grid.ColumnSpan="2">
-            <TextBlock Foreground="White" TextWrapping="Wrap" Text="Клиент:" Height="23"/>
-            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel DataContext="{Binding SelectedLog, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0"   Margin="381,10,10,194" Grid.ColumnSpan="2">
             <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="Паспорт:"/>
-            <TextBlock Foreground="White"  Height="23" TextWrapping="Wrap" Text="{Binding Passport}"/>
-            <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="Описание услуги:"/>
-            <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="{Binding ServiceName}"/>
+            <TextBlock Foreground="White"  Height="23" TextWrapping="Wrap" Text="{Binding Client1.Passport}"/>
+
             <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="Сумма оплаты:"/>
-            <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="{Binding Sum}"/>
+            <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="{Binding Pay1.Sum}"/>
             <TextBlock Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата оплаты:"/>
             <DatePicker SelectedDate="{Binding Date}"/>
         </StackPanel>
-        <ComboBox   x:Name="combo"
-                ItemsSource="{Binding clients}"
-                SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsSynchronizedWithCurrentItem="True"                    
-                DisplayMemberPath="Fio"
-                SelectedValuePath="ID_client_FK" HorizontalAlignment="Left" Width="292" Margin="397,259,0,63" Grid.ColumnSpan="2"/>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding log}" SelectedItem="{Binding SelectedLog}" Margin="0,-41,144,63">
+        <ListBox Grid.Column="0" ItemsSource="{Binding log}" SelectedItem="{Binding SelectedLog, Mode=TwoWay}" Margin="0,-41,144,63">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock  FontSize="18" Text="{Binding Path=Fio}" />
-                        <TextBlock Text="Паспорт: "> <TextBlock Text="{Binding Path=Passport}" /> </TextBlock>
-                        <TextBlock Text="Описание: "> <TextBlock Text="{Binding Path=ServiceName}"/></TextBlock>
-                        <TextBlock Text="Сумма: "> <TextBlock Text="{Binding Path=Sum}" /></TextBlock>
+                        <TextBlock  FontSize="18" Text="{Binding Path=Client1.Fio}" />
+                        <TextBlock Text="Паспорт: "> <TextBlock Text="{Binding Path=Client1.Passport}" /> </TextBlock>
+                        <TextBlock Text="Описание: "> <TextBlock Text="{Binding Path=Service1.Name}"/></TextBlock>
+                        <TextBlock Text="Сумма: "> <TextBlock Text="{Binding Path=Pay1.Sum}" /></TextBlock>
                         <TextBlock Text="Дата: "> <TextBlock Text="{Binding Path=Date}" /></TextBlock>
                     </StackPanel>
                 </DataTemplate>
@@ -74,29 +66,38 @@
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Margin="0,0,0,-9" />
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="32" Margin="0,0,10,-9" Source="C:\Users\vikul\source\repos\Host_v1\save.png" Height="Auto" HorizontalAlignment="Right" />
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button  Command="{Binding }" HorizontalAlignment="Left" Margin="78,294,0,0" VerticalAlignment="Top" Width="47" Height="30">
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Ellipse x:Name="ell" Stroke="Black" Margin="0,0,0,-12" />
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="Auto" Margin="4,0,0,-12" Source="C:\Users\vikul\source\repos\Host_v1\Delete.png" Height="Auto" />
+                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="FontWeight" Value="Bold" />
-                            <Setter TargetName="ell" Property="Fill" Value="#FF9EC6FF" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                            <Setter TargetName="ell" Property="StrokeThickness" Value="4" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label Content="Журнал услуг" HorizontalAlignment="Left" Margin="0,-81,0,0" VerticalAlignment="Top" Width="363" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
+        <Button  Command="{Binding RemoveLog}" HorizontalAlignment="Left" Margin="78,294,0,0" VerticalAlignment="Top" Width="47" Height="31">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="0,0,0,-12" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="Auto" Margin="4,0,0,-12" Source="..\Images\Delete.png" Height="Auto" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label Content="Журнал услуг" HorizontalAlignment="Left" Margin="0,-85,0,0" VerticalAlignment="Top" Width="363" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="39">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
@@ -110,8 +111,19 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <Button  HorizontalAlignment="Left" Margin="153,294,0,0" VerticalAlignment="Top" Width="35" Height="35" Background="Black">
-            <Image Source="C:\Users\vikul\source\repos\Host_v1\+.png"></Image>
-        </Button>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="381,-38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="372" Text="Клиент:" Height="23"/>
+        <ComboBox HorizontalAlignment="Left" Margin="381,-17,0,0" VerticalAlignment="Top" Width="363" Grid.ColumnSpan="2"
+                ItemsSource="{Binding clients, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedLog.Client1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True"                     
+                DisplayMemberPath="Fio"
+                SelectedValuePath="ID_client" Height="22" />
+        <TextBlock HorizontalAlignment="Left" Margin="381,157,0,0" TextWrapping="Wrap" Text="Описание услуги:" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="372" Foreground="White" Height="23"/>
+        <ComboBox HorizontalAlignment="Left" Margin="381,180,0,0" VerticalAlignment="Top" Width="363" Grid.ColumnSpan="2"
+                ItemsSource="{Binding services, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedLog.Service1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True"                     
+                DisplayMemberPath="Description"
+                SelectedValuePath="ID_service" Height="23"/>
     </Grid>
 </Window>

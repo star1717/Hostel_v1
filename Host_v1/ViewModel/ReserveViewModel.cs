@@ -1,11 +1,11 @@
-﻿using Host_v1.ViewModel.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Host_v1.ViewModel
@@ -27,6 +27,9 @@ namespace Host_v1.ViewModel
         private Status selectedStatus;
 
         public Uchet uchet { get; set; }
+
+        public ObservableCollection<Uchet> uchets { get; set; }
+        //private bool[] flag;
 
         public ObservableCollection<Worker> worker { get; set; }
         private Worker selectedWorker;
@@ -50,20 +53,59 @@ namespace Host_v1.ViewModel
             kategory = new ObservableCollection<Kategory>(db.Kategory);
             numbers = new ObservableCollection<Number>(db.Number);
             status = new ObservableCollection<Status>(db.Status);
-            uchet = new Uchet();
+            uchet = new Uchet() { Date_start=DateTime.Now, Date_finish=DateTime.Now};
             worker = new ObservableCollection<Worker>(db.Worker);
-
+            uchets = new ObservableCollection<Uchet>(db.Uchet);
         }
-        private ICommand reserve;
-        public ICommand Reserve
+
+        private RelayCommand reserve;
+        public RelayCommand Reserve
         {
             get
             {
-                if (reserve == null)
-                {
-                    reserve = new ReserveCommand(this);
-                }
-                return reserve;
+                return reserve ??
+                    (reserve = new RelayCommand(obj =>
+                    {
+                        var items = db.Uchet.Where(u => u.ID_number_FK == SelectedNumber.ID);
+                        foreach (var item in items) { if (item.date_start <= uchet.date_start && uchet.date_start <= item.date_finish) { text = "Выбранный вами номер забронирован на этот период!"; return; } }
+                        if (SelectedClient != null)
+                        {
+                            if (SelectedNumber != null)
+                            {
+                                if (SelectedWorker != null)
+                                {
+                                    if (uchet.Date_start < uchet.Date_finish)
+                                    {
+                                        var client = db.Clients.Find(SelectedClient.ID_client);
+                                        var number = db.Number.Find(SelectedNumber.ID_number);
+                                        var worker = db.Worker.Find(SelectedWorker.ID_worker);
+                                        var uchett = new Uchet()
+                                        {
+                                            ID_client_FK = client.ID_client,
+                                            ID_number_FK = number.ID_number,
+                                            ID_worker_FK = worker.ID_worker,
+                                            Date_start = uchet.date_start,
+                                            Date_finish = uchet.date_finish
+                                        };
+                                        if (uchet.Date_start <= DateTime.Today && DateTime.Today <= uchet.Date_finish) number.Status1 = db.Status.Find(2);
+                                        db.Uchet.Add(uchett);
+                                        db.SaveChanges();
+                                        text = "";
+                                        MessageBox.Show("Номер забронирован!");
+                                        //_cvm.SelectedClient = null;
+                                        //_cvm.SelectedNumber = null;
+                                        //_cvm.SelectedWorker = null;
+                                        //_cvm.SelectedKatgory = null;
+                                        //_cvm.SelectedStatus = null;
+                                    }
+                                    else text = "Период проживания указан неправильно!";
+                                }
+                                else text = "Пожалуйста, выберете администратора, работающего в системе!";
+                            }
+                            else text = "Пожалуйста, выберете номер для бронирования!";
+                        }
+                        else text = "Пожалуйста, выберете клиента!";
+                    }));
             }
         }
         public Status SelectedStatus

@@ -19,13 +19,10 @@ namespace Host_v1.View
     /// </summary>
     public partial class MainWindow1 : Window
     {
-        public MainWindow1(Model1 db)
+        public MainWindow1()
         {
             InitializeComponent();
-            MainViewModel1 vm= new MainViewModel1(db);
-            DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(this.Close);
+ 
         }
     }
 }

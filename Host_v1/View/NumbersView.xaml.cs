@@ -20,10 +20,10 @@ namespace Host_v1.View
     /// </summary>
     public partial class NumbersView : Window
     {
-        public NumbersView(Model1 db)
+        public NumbersView()
         {
             InitializeComponent();
-            DataContext = new NumbersViewModel(db);
+ 
         }
     }
 }

@@ -20,10 +20,10 @@ namespace Host_v1.View
     /// </summary>
     public partial class LogView : Window
     {
-        public LogView(Model1 db)
+        public LogView()
         {
             InitializeComponent();
-            DataContext = new LogViewModel(db);
+         
         }
     }
 }

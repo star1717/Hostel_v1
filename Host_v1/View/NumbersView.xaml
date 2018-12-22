@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="NumbersView" Height="480.444" Width="800">
+        Title="Номера" Height="486.321" Width="800">
 
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
@@ -21,24 +21,21 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid >
-        <ListBox Grid.Column="0" ItemsSource="{Binding numbers}" SelectedItem="{Binding SelectedNumber}" Margin="24,40,414,43" RenderTransformOrigin="0.472,0.711">
+        <ListBox Grid.Column="0" ItemsSource="{Binding numbers}" SelectedItem="{Binding SelectedNumber, Mode=TwoWay}" Margin="24,40,402,0" RenderTransformOrigin="0.472,0.711" Height="354" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
                         <TextBlock Text="№ "><TextBlock FontSize="18" Text="{Binding Path=ID}" /></TextBlock>
-                        <TextBlock Text="Тип: "> <TextBlock Text="{Binding Path=Kategory.Name}" /> </TextBlock>
-                        <TextBlock Text="Статус: " VerticalAlignment="Top"> <TextBlock Text="{Binding Path=Status.Name}" /> </TextBlock>
+                        <TextBlock Text="Тип: "> <TextBlock Text="{Binding Path=Kategory1.Name}" /> </TextBlock>
+                        <TextBlock Text="Статус: " VerticalAlignment="Top"> <TextBlock Text="{Binding Path=Status1.Name}" /> </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel DataContext="{Binding SelectedNumber}" HorizontalAlignment="Left" Height="126" Margin="408,40,0,0" VerticalAlignment="Top" Width="352">
+        <StackPanel DataContext="{Binding SelectedNumber}" HorizontalAlignment="Left" Height="44" Margin="408,40,0,0" VerticalAlignment="Top" Width="352">
             <TextBlock Margin="10,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350" Height="18" Text="Номер:" Foreground="White"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,2,0"/>
-            <TextBlock Text="Тип:" Margin="11,2,2,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Foreground="White"/>
-            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Kategory.Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,2,0"/>
-            <TextBlock TextWrapping="Wrap"  Margin="11,0,2,0" Text="Статус:" Height="18" Foreground="White"/>
-            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Status.Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,2,0"/>
+
         </StackPanel>
         <Label Content="Справочник номеров" HorizontalAlignment="Left" Margin="24,5,0,0" VerticalAlignment="Top" Width="393" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>
@@ -54,13 +51,76 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="525,188,0,0" VerticalAlignment="Top" Width="75"/>
-        <!--<StackPanel HorizontalAlignment="Left" Height="100" Margin="420,85,0,0" VerticalAlignment="Top" Width="362">
-            <TextBlock Text="Тип:" Margin="11,2,2,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Foreground="White"/>
-            
-            <TextBlock TextWrapping="Wrap"  Margin="11,0,2,0" Text="Статус:" Height="18" Foreground="White"/>
-            <ComboBox Margin="10,0,2,0"/>
-        </StackPanel>-->
 
+        <ComboBox HorizontalAlignment="Left" Margin="417,153,0,0" VerticalAlignment="Top" Width="340"
+                 ItemsSource="{Binding kategory, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedNumber.Kategory1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True"                     
+                DisplayMemberPath="Name"
+                SelectedValuePath="ID_type" Height="23"/>
+        <StackPanel DataContext="{Binding SelectedNumber}" HorizontalAlignment="Left" Height="44" Margin="408,40,0,0" VerticalAlignment="Top" Width="352">
+            <TextBlock Margin="10,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350" Height="18" Text="Номер:" Foreground="White"/>
+            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,2,0"/>
+        </StackPanel>
+        <TextBlock TextWrapping="Wrap"  Margin="417,85,0,335" Text="Статус:" Foreground="White" HorizontalAlignment="Left" Width="340" Height="17"/>
+        <TextBlock Text="Тип:" Margin="417,136,32,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="17" Foreground="White"/>
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="417,108,0,0" VerticalAlignment="Top" Width="340"
+                ItemsSource="{Binding status, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedNumber.Status1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                IsSynchronizedWithCurrentItem="True"                     
+                DisplayMemberPath="Name"
+                SelectedValuePath="id_status"/>
+        <Button  Command="{Binding RemoveNumber}" HorizontalAlignment="Left" Margin="90,399,0,0" VerticalAlignment="Top" Width="47" Height="31">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="0,0,0,-12" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="Auto" Margin="4,0,0,-12" Source="..\Images\Delete.png" Height="Auto" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Command="{Binding  SaveNumber}"  HorizontalAlignment="Left" Margin="561,196,0,0" VerticalAlignment="Top" Width="52" Height="35" RenderTransformOrigin="0.596,0.767">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                            <Setter TargetName="ell" Property="StrokeThickness" Value="4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button  Command="{Binding AddNumber}"  HorizontalAlignment="Left" Margin="24,399,0,0" Width="47" Height="31" VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="0,0,0,-11" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0,4,-11" Source="..\Images\+.png" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

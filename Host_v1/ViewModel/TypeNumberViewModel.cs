@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Host_v1.Interfaces;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Host_v1.ViewModel
 {
@@ -12,10 +15,35 @@ namespace Host_v1.ViewModel
     {
         public Model1 db;
         public ObservableCollection<Kategory> kategory { get; set; }
-        public TypeNumberViewModel(Model1 db)
+        public IDialogService dialog;
+        public TypeNumberViewModel(Model1 db, IDialogService ds)
         {
             this.db = db;
+            dialog = ds;
             kategory = new ObservableCollection<Kategory>(db.Kategory);
+            SelectedKategory=db.Kategory.FirstOrDefault();
+        }
+        private RelayCommand uploadPhoto;
+        public RelayCommand UploadPhoto
+        {
+            get
+            {
+                return uploadPhoto ??
+                    (uploadPhoto = new RelayCommand(obj =>
+                    {
+                        if (dialog.OpenFileDialog() == true)
+                        {
+                            try
+                            {
+                                SelectedKategory.Photo = dialog.FilePath;
+                                dialog.ShowMessage("Фото загружено!");
+                            }
+                            catch { dialog.ShowMessage("Пожалуйста, попробуйте еще раз!"); }
+
+                        }
+                    }));
+            }
+
         }
         private Kategory selectedKategory;
         public Kategory SelectedKategory

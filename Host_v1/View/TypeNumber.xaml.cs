@@ -20,10 +20,10 @@ namespace Host_v1.View
     /// </summary>
     public partial class TypeNumber : Window
     {
-        public TypeNumber(Model1 db)
+        public TypeNumber()
         {
             InitializeComponent();
-            DataContext = new TypeNumberViewModel(db);
+            //DataContext = new TypeNumberViewModel(db, new DefaultDialogService());
         }
     }
 }

@@ -86,41 +86,24 @@
     <Compile Include="ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Commands\AddClientCommand.cs" />
-    <Compile Include="Model\Client.cs" />
-    <Compile Include="Model\Kategory.cs" />
-    <Compile Include="Model\Log.cs" />
-    <Compile Include="EF\Model1.cs" />
+    <Compile Include="DefaultDialogService.cs" />
+    <Compile Include="Interfaces\IDialogService.cs" />
+    <Compile Include="Interfaces\IRequireViewIdentification.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
-    <Compile Include="ViewModel\Commands\CreateReportCommand.cs" />
-    <Compile Include="ViewModel\Commands\MyCommand.cs" />
-    <Compile Include="Model\Number.cs" />
-    <Compile Include="Model\Pay.cs" />
-    <Compile Include="Model\Service.cs" />
-    <Compile Include="Model\Status.cs" />
-    <Compile Include="Model\Uchet.cs" />
-    <Compile Include="ViewModel\Commands\OpenClientViewCommand.cs" />
-    <Compile Include="ViewModel\Commands\OpenLogViewCommand.cs" />
-    <Compile Include="ViewModel\Commands\OpenNumbersViewCommand.cs" />
-    <Compile Include="ViewModel\Commands\OpenPasswordViewCommand.cs" />
-    <Compile Include="ViewModel\Commands\OpenPasswordViewCommand2.cs" />
-    <Compile Include="ViewModel\Commands\OpenTypeNumberViewCommand.cs" />
-    <Compile Include="ViewModel\Commands\PasswordCommand.cs" />
-    <Compile Include="ViewModel\Commands\RemoveClientCommand.cs" />
-    <Compile Include="ViewModel\Commands\ReserveCommand.cs" />
-    <Compile Include="ViewModel\Commands\SaveClientsCommand.cs" />
-    <Compile Include="ViewModel\Commands\SaveLogCommand.cs" />
-    <Compile Include="ViewModel\Commands\SaveNumbersCommand.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel1.cs" />
-    <Compile Include="Model\Worker.cs" />
-    <Compile Include="ViewModel\Commands\OpenReserveViewCommand.cs" />
     <Compile Include="ViewModel\MainViewModel2.cs" />
     <Compile Include="ViewModel\NumbersViewModel.cs" />
     <Compile Include="ViewModel\PasswordViewModel.cs" />
+    <Compile Include="ViewModel\PayViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\ReserveViewModel.cs" />
+    <Compile Include="ViewModel\ServiceViewModel.cs" />
     <Compile Include="ViewModel\TypeNumberViewModel.cs" />
+    <Compile Include="ViewModel\UchetViewModel.cs" />
+    <Compile Include="ViewModel\WorkerViewModel.cs" />
+    <Compile Include="ViewShower.cs" />
     <Compile Include="View\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -136,15 +119,28 @@
     <Compile Include="View\Password.xaml.cs">
       <DependentUpon>Password.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PayView.xaml.cs">
+      <DependentUpon>PayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ReserveView.xaml.cs">
       <DependentUpon>ReserveView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ServiceView.xaml.cs">
+      <DependentUpon>ServiceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TypeNumber.xaml.cs">
       <DependentUpon>TypeNumber.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UchetView.xaml.cs">
+      <DependentUpon>UchetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkerView.xaml.cs">
+      <DependentUpon>WorkerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowManager.cs" />
     <Page Include="ClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +169,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,7 +181,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TypeNumber.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UchetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,13 +226,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\+.png" />
     <Resource Include="Images\-.jpg" />
-    <Resource Include="Images\Delete.png" />
     <Resource Include="Images\go.jpg" />
     <Resource Include="Images\go.png" />
     <Resource Include="Images\hostel.jpg" />
-    <Resource Include="Images\lux.jpg" />
     <Resource Include="Images\prezidentskiy.jpg" />
     <Resource Include="Images\save.png" />
     <Resource Include="Images\standart+.jpg" />
@@ -233,6 +242,36 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\hotel.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\+.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Save4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\luxx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lux2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lux3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\file1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\BLL.csproj">
+      <Project>{a980765f-5385-4e9a-ae0c-1efbf2779de5}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{c519e248-859b-4b4b-ba7f-75f7bd312158}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

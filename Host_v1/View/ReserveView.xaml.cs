@@ -20,10 +20,10 @@ namespace Host_v1.View
     /// </summary>
     public partial class ReserveView : Window
     {
-        public ReserveView(Model1 db)
+        public ReserveView()
         {
             InitializeComponent();
-            DataContext = new ReserveViewModel(db);
+       
         }
     }
 }

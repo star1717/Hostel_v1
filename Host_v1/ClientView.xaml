@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1"
         mc:Ignorable="d"
-        Title="AddClient" Height="555" Width="997">
+        Title="AddClient" Height="463" Width="872">
     <Window.Resources>
-        
+
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -18,43 +18,26 @@
     </Window.Background>
     <Grid RenderTransformOrigin="0.564,0.492" Margin="27,85,2,0">
 
-        <Button  Command="{Binding AddClient}"  HorizontalAlignment="Left" Margin="10,396,0,0" Width="47" Height="30" VerticalAlignment="Top">
-            <!--<StackPanel Orientation="Horizontal" Height="32" Width="41">
-                <Image Source="C:\Users\vikul\source\repos\Host_v1\+.png" RenderTransformOrigin="0.321,0.5" Width="39" Margin="0,0,0,10"  />
-            </StackPanel>-->
+        <Button  Command="{Binding AddClient}"  HorizontalAlignment="Left" Margin="10,294,0,0" Width="47" Height="31" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0" Source="C:\Users\vikul\source\repos\Host_v1\+.png" />
+                        <Ellipse x:Name="ell" Margin="0,0,0,-11" />
+                        <Image RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0,4,-11" Source="C:\Users\vikul\source\repos\Host_v1\Host_v1\Images\+.png" ></Image>
+                        <!--<Image  enderTransformOrigin="0.321,0.5" Width="39" Margin="4,0,4,-11" Source="..\Images\+.png" />-->
                     </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        
-        <Button Margin="900,-79,0,0" Height="49" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF3387EC">
-         
-            <Style TargetType="Ellipse" >
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Fill" Value="#FF0D0789" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-             
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="#FF368CF3">
-
-                        </Ellipse>
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="6,-9,5,10" Source="..\Host_v1\Images\go.png" />
-                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
         <!--<Image  Height="38" Margin="900,-79,10,480"  Source="C:\Users\vikul\source\repos\Host_v1\go.png" RenderTransformOrigin="1.088,0.441"/>-->
-        <StackPanel Grid.Column="0"  DataContext="{Binding SelectedClient}" Margin="454,-30,10,317">
+        <StackPanel Grid.Column="0"  DataContext="{Binding SelectedClient}" Margin="454,-30,10,0" Height="152" VerticalAlignment="Top">
             <TextBlock Text="ФИО" RenderTransformOrigin="0.499,-2.688" Foreground="White" />
             <TextBox Text="{Binding Fio, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Серия и номер паспорта" Foreground="White" />
@@ -65,7 +48,7 @@
             <!--<DatePicker RenderTransformOrigin="0.491,-0.125" Text="{Binding Birth, UpdateSourceTrigger=PropertyChanged}"/>-->
             <DatePicker SelectedDate="{Binding Birth}"/>
         </StackPanel>
-        <ListBox Grid.Column="0" ItemsSource="{Binding clients}" SelectedItem="{Binding SelectedClient}" Margin="0,-41,524,52">
+        <ListBox Grid.Column="0" ItemsSource="{Binding clients}" SelectedItem="{Binding SelectedClient}" Margin="0,-41,0,0" Height="330" VerticalAlignment="Top" HorizontalAlignment="Left" Width="436">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
@@ -77,31 +60,41 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Command="{Binding SaveClients}"  HorizontalAlignment="Left" Margin="669,127,0,0" VerticalAlignment="Top" Width="47" Height="30">
-            <!--<StackPanel Orientation="Horizontal" Height="32" Width="41">
-                <Image Source="C:\Users\vikul\source\repos\Host_v1\save.png" RenderTransformOrigin="0.321,0.5" Width="39" Margin="0,0,0,10"  />
-            </StackPanel>-->
+
+        <Button Command="{Binding SaveClients}"  HorizontalAlignment="Left" Margin="611,127,0,0" VerticalAlignment="Top" Width="52" Height="35">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="35"  Margin="3,0" Source="C:\Users\vikul\source\repos\Host_v1\save.png" Height="26" />
+                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="C:\Users\vikul\source\repos\Host_v1\Host_v1\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                            <Setter TargetName="ell" Property="StrokeThickness" Value="6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button  Command="{Binding RemoveClient}" HorizontalAlignment="Left" Margin="73,396,0,0" VerticalAlignment="Top" Width="47" Height="30">
+        <Button  Command="{Binding RemoveClient}" HorizontalAlignment="Left" Margin="82,294,0,0" VerticalAlignment="Top" Width="47" Height="31">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0" Source="C:\Users\vikul\source\repos\Host_v1\Delete.png" />
+                        <Ellipse x:Name="ell" Margin="0,0,0,-12" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="Auto" Margin="4,0,0,-12" Source="C:\Users\vikul\source\repos\Host_v1\Host_v1\Images\Delete.png" Height="Auto" />
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <!--<StackPanel Orientation="Horizontal" Height="32" Width="41" Cursor="Wait">
-                <Image Source="C:\Users\vikul\source\repos\Host_v1\Delete.png" RenderTransformOrigin="0.321,0.5" Width="39" Margin="0,0,0,10"  />
-            </StackPanel>-->
         </Button>
         <Label Content="Справочник клиентов" HorizontalAlignment="Left" Margin="0,-81,0,0" VerticalAlignment="Top" Width="393" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>

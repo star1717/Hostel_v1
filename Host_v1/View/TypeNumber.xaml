@@ -5,13 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="TypeNumber" Height="541.274" Width="826">
-    <Window.Resources>
-        <Style x:Key="{x:Type Button}">
-            <Setter Property="Control.FontSize" Value="18"></Setter>
-            <Setter Property="Control.Background" Value="#FF70B4DB"></Setter>
-        </Style>
-    </Window.Resources>
+        Title="TypeNumber" Height="564.274" Width="800">
+
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0.19"/>
@@ -20,7 +15,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid >
-        <ListBox Grid.Column="0" ItemsSource="{Binding kategory}" SelectedItem="{Binding SelectedKategory}" Margin="24,40,454,43" RenderTransformOrigin="0.472,0.711">
+        <ListBox Grid.Column="0" ItemsSource="{Binding kategory}" SelectedItem="{Binding SelectedKategory}" Margin="24,40,0,0" RenderTransformOrigin="0.472,0.711" HorizontalAlignment="Left" Width="340" Height="427" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
@@ -28,7 +23,7 @@
                         <TextBlock Text="Описание: "> <TextBlock Text="{Binding Path=Description}" /> </TextBlock>
                         <TextBlock Text="Вместимость: " VerticalAlignment="Top"> <TextBlock Text="{Binding Path=Capacity}" /> </TextBlock>
                         <TextBlock Text="Цена: "> <TextBlock Text="{Binding Path=Cost}" /></TextBlock>
-                        
+
                         <ListBoxItem>
                             <StackPanel >
                                 <Image Source="{Binding Photo}" Height="173" Margin="10,0"></Image>
@@ -38,7 +33,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel DataContext="{Binding SelectedKategory}" HorizontalAlignment="Left" Height="363" Margin="420,40,0,0" VerticalAlignment="Top" Width="388">
+        <StackPanel DataContext="{Binding SelectedKategory}" HorizontalAlignment="Left" Height="363" Margin="394,40,0,0" VerticalAlignment="Top" Width="388">
             <TextBlock Margin="0,2,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="18" Text="Имя" Foreground="White"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
             <TextBlock Text="Описание" Margin="0,2,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
@@ -72,14 +67,89 @@
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
             <TextBlock TextWrapping="Wrap" Text="Фото" Margin="10,0" HorizontalAlignment="Right" Width="368" Height="18" Foreground="White"/>
             <Image Height="173" Margin="10,0" Source="{Binding Photo, UpdateSourceTrigger=PropertyChanged}"/>
-            
+
         </StackPanel>
-        <Button Content="Выбрать фото" Margin="431,418,19,60">
+        <!--<Button Command="{Binding UploadPhoto}" Content="Выбрать фото" Margin="404,408,283,0" Height="25" VerticalAlignment="Top">
             <Button.ToolTip>
                 <ToolTip>
                     Загрузить фото
                 </ToolTip>
             </Button.ToolTip>
+        </Button>-->
+        <Button  Command="{Binding }"  HorizontalAlignment="Left" Margin="24,472,0,0" Width="47" Height="31" VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="0,0,0,-11" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="4,0,4,-11" Source="..\Images\+.png" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button  Command="{Binding }" HorizontalAlignment="Left" Margin="88,472,0,0" VerticalAlignment="Top" Width="47" Height="31">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="0,0,0,-12" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="Auto" Margin="4,0,0,-12" Source="..\Images\Delete.png" Height="Auto" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Command="{Binding  }"  HorizontalAlignment="Left" Margin="596,408,0,0" VerticalAlignment="Top" Width="52" Height="35" RenderTransformOrigin="0.596,0.767">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="7,0,0,-9" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                            <Setter TargetName="ell" Property="StrokeThickness" Value="4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Command="{Binding  UploadPhoto}"  HorizontalAlignment="Left" Margin="524,408,0,0" VerticalAlignment="Top" Width="56" Height="35" RenderTransformOrigin="0.596,0.767">
+            <Button.ToolTip>
+                <ToolTip>
+                    Загрузить фото
+                </ToolTip>
+            </Button.ToolTip>
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\file1.png" Height="Auto" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="White" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                            <Setter TargetName="ell" Property="StrokeThickness" Value="4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
         <Label Content="Справочник типов номеров" HorizontalAlignment="Left" Margin="24,5,0,0" VerticalAlignment="Top" Width="393" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>
