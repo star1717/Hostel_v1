@@ -50,23 +50,6 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-
-            <!--<Style TargetType="Ellipse" >
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Fill" Value="#FF7DA7F1" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="#FF368CF3">
-                        </Ellipse>
-                        <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="6,-9,5,10" Source="..\Images\go.png" />
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>-->
         </Button>
     </Grid>
 </Window>

@@ -83,13 +83,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClientView.xaml.cs">
+    <Compile Include="View\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DefaultDialogService.cs" />
+    <Compile Include="Helpers\DefaultDialogService.cs" />
     <Compile Include="Interfaces\IDialogService.cs" />
     <Compile Include="Interfaces\IRequireViewIdentification.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Helpers\User.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel1.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="ViewModel\TypeNumberViewModel.cs" />
     <Compile Include="ViewModel\UchetViewModel.cs" />
     <Compile Include="ViewModel\WorkerViewModel.cs" />
-    <Compile Include="ViewShower.cs" />
+    <Compile Include="Helpers\ViewShower.cs" />
     <Compile Include="View\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -141,8 +141,8 @@
     <Compile Include="View\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowManager.cs" />
-    <Page Include="ClientView.xaml">
+    <Compile Include="Helpers\WindowManager.cs" />
+    <Page Include="View\ClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,5 +274,6 @@
       <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

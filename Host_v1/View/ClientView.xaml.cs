@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Host_v1
+namespace Host_v1.View
 {
     /// <summary>
     /// Логика взаимодействия для AddClient.xaml
