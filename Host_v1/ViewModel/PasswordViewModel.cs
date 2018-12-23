@@ -16,15 +16,16 @@ namespace Host_v1.ViewModel
 {
     class PasswordViewModel : INotifyPropertyChanged, IRequireViewIdentification
     {
-        public Model1 db = new Model1();
+        public DbOperations db = new DbOperations();
         public ObservableCollection<Worker> workers { get; set; }
         private Worker worker;
-
+        private IDialogService ds = new DefaultDialogService();
         public PasswordViewModel()
         {
             ViewID = Guid.NewGuid();
-            workers = new ObservableCollection<Worker>(db.Worker);
+            workers = new ObservableCollection<Worker>(db.GetAllWorker());
             worker = new Worker();
+            if (User.ID_worker > 0) Login = db.FindWorker(User.ID_worker).Login;
         }
         public Guid ViewID { get; }
         private string login;
@@ -52,31 +53,33 @@ namespace Host_v1.ViewModel
                             if (selectedUsers.Count() > 0) // если такая запись существует
                             {
 
-                                MessageBox.Show("Добро пожаловать, " + selectedUsers.FirstOrDefault().FIO.TrimEnd() + " <3"); // говорим, что авторизовался
+                                ds.ShowMessage("Добро пожаловать, " + selectedUsers.FirstOrDefault().FIO.TrimEnd() + " <3"); // говорим, что авторизовался
                                 if (selectedUsers.FirstOrDefault().position.TrimEnd() == "Администратор")
                                 {
                                     MainWindow1 main = new MainWindow1();
-                                  
+                                    User.ID_worker = selectedUsers.FirstOrDefault().ID_worker;
+                                    User.FIO = selectedUsers.FirstOrDefault().Fio;
                                     WindowManager.CloseWindow(ViewID);
-                                    main.DataContext = new MainViewModel1(db);
+                                    main.DataContext = new MainViewModel1(db,ds);
                                     main.Show();
 
                                 }
                                 else
                                 {
                                     MainWindow2 main = new MainWindow2();
-                                    main.DataContext =new MainViewModel2(db);
+                                    User.ID_worker = selectedUsers.FirstOrDefault().ID_worker;
+                                    User.FIO = selectedUsers.FirstOrDefault().Fio;
+                                    main.DataContext =new MainViewModel2(db,ds);
                                     main.Show();
                                     WindowManager.CloseWindow(ViewID);                                   
                                 }
                             }
                         
-                            else MessageBox.Show("Пожалуйста, повторите ввод логина и пароля!"); // выводим ошибку
+                            else ds.ShowMessage("Пожалуйста, повторите ввод логина и пароля!"); // выводим ошибку
                         }
-                    }, obj=> (Login!=null && (obj as PasswordBox).Password!=null)));
+                    }, obj=> (Login!=null)));
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

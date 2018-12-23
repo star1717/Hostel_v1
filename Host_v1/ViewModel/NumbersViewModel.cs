@@ -1,4 +1,5 @@
 ﻿
+using Host_v1.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,7 @@ namespace Host_v1.ViewModel
 {
     class NumbersViewModel : INotifyPropertyChanged
     {
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Kategory> kategory { get; set; }
 
 
@@ -21,7 +22,7 @@ namespace Host_v1.ViewModel
 
         public ObservableCollection<Status> status { get; set; }
 
-
+        private IDialogService ds;
         public Number SelectedNumber
         {
             set
@@ -31,14 +32,16 @@ namespace Host_v1.ViewModel
             }
             get { return selectedNumber; }
         }
-        public NumbersViewModel(Model1 db)
+        
+        public NumbersViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            numbers = new ObservableCollection<Number>(db.Number);
+            numbers = new ObservableCollection<Number>(db.GetAllNumber());
             numbers.OrderBy(u => u.ID);
-            kategory = new ObservableCollection<Kategory>(db.Kategory);
-            status = new ObservableCollection<Status>(db.Status);
-            SelectedNumber = db.Number.FirstOrDefault();
+            kategory = new ObservableCollection<Kategory>(db.GetAllKategory());
+            status = new ObservableCollection<Status>(db.GetAllStatus());
+            SelectedNumber = db.GetAllNumber().FirstOrDefault();
         }
         private RelayCommand addNumber;
         public RelayCommand AddNumber
@@ -51,7 +54,7 @@ namespace Host_v1.ViewModel
                         Number number = new Number();
                         numbers.Insert(0, number);
                         SelectedNumber = number;
-                        MessageBox.Show("Новая номер добавлен!");
+                        ds.ShowMessage("Новая номер добавлен!");
                     }));
             }
         }
@@ -64,12 +67,12 @@ namespace Host_v1.ViewModel
                     (removeNumber = new RelayCommand(obj =>
                     {
 
-                        if (db.Number.Find(SelectedNumber.ID) != null)
+                        if (db.FindNumber(SelectedNumber.ID) != null)
                         {
-                            db.Number.Remove(SelectedNumber);
+                            db.RemoveNumber(SelectedNumber);
                             numbers.Remove(SelectedNumber);
-                            db.SaveChanges();
-                            MessageBox.Show("Объект удален!");
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
                         }
                         else numbers.Remove(SelectedNumber);
                     },
@@ -90,19 +93,19 @@ namespace Host_v1.ViewModel
                         {
                             if (SelectedNumber != null)
                             {
-                                 number = db.Number.Find(SelectedNumber.ID);
+                                 number = db.FindNumber(SelectedNumber.ID);
                                 if (number == null)
                                 {
-                                    db.Number.Add(SelectedNumber);
+                                    db.AddNumber(SelectedNumber);
                                 }
-                                db.SaveChanges();
-                                MessageBox.Show("Изменения сохранены!");
+                                db.Save();
+                                ds.ShowMessage("Изменения сохранены!");
                             }
                         }
                         catch
                         {
-                         
-                            MessageBox.Show("Невозможно изменить объект!");
+
+                            ds.ShowMessage("Невозможно изменить объект!");
                         }
 
                     }, (obj) => (SelectedNumber != null) && SelectedNumber.Status1 != null && SelectedNumber.Kategory1 != null));

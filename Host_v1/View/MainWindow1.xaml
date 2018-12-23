@@ -5,55 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="Гостиница" Height="449.487" Width="559.913" WindowStartupLocation="CenterScreen">
+        Title="Гостиница" Height="384.065" Width="552.216" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.FontSize" Value="18"></Setter>
             <Setter Property="Control.Background" Value="#FF70B4DB"></Setter>
         </Style>
     </Window.Resources>
-    <!--<Window.DataContext>
-        <viewmodels:ViewModel/>
-       
-    </Window.DataContext>-->
     <Grid Margin="0,0,0,-6" >
 
-        <!--<Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0"/>
-                <GradientStop Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}" Offset="1"/>
-                <GradientStop Color="#FF1D6FCD" Offset="0.49"/>
-            </LinearGradientBrush>
-        </Grid.Background>-->
-        <Image Source="../Images/hotel.jpg" Margin="0,-22,-121,-18" />
+        <Image Source="../Images/hotel.jpg" Margin="-27,-13,0,-10" />
         <Button Command="{Binding OpenClientView}" Content="Клиенты" HorizontalAlignment="Left" Margin="34,262,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944" Background="#D870B4DB"/>
         <Button Command="{Binding OpenTypeNumberView}" Content="Типы номеров" HorizontalAlignment="Left" Margin="316,82,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944" Background="#D870B4DB" />
         <Button Command="{Binding OpenReserveView}" Content="Забронировать номер" HorizontalAlignment="Left" Margin="34,146,0,0" VerticalAlignment="Top"  Width="202" RenderTransformOrigin="0.111,1.646" Height="41" BorderBrush="#FF000342" Background="#D870B4DB"/>
         <Button Command="{Binding OpenUchetView}" Content="Проживание" HorizontalAlignment="Left" Margin="34,82,0,0" VerticalAlignment="Top" Width="202" Height="41" Background="#D870B4DB" Foreground="Black" BorderBrush="#FF040944"/>
-        <Button Command="{Binding OpenServiceView}" Content="Услуги" HorizontalAlignment="Left" Margin="34,319,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944" Background="#D870B4DB"/>
-        <Button Command="{Binding OpenLogView}" Content="Журнал услуг" HorizontalAlignment="Left" Margin="34,206,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#D870B4DB" BorderBrush="#FF040944"/>
-        <Button Command="{Binding OpenPasswordView}" Margin="492,10,0,0" Height="49" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF3387EC" RenderTransformOrigin="-7.72,2.224">
-
-            <Style TargetType="Ellipse" >
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Fill" Value="#FFA0D4FF" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
+        <Button Command="{Binding OpenServiceView}" Content="Услуги" HorizontalAlignment="Left" Margin="316,262,0,0" VerticalAlignment="Top" Width="202" Height="41" BorderBrush="#FF040944" Background="#D870B4DB"/>
+        <Button Command="{Binding OpenLogView}" Content="Оказать услугу" HorizontalAlignment="Left" Margin="34,206,0,0" VerticalAlignment="Top" Width="202" Height="41" RenderTransformOrigin="-0.029,7.263" Background="#D870B4DB" BorderBrush="#FF040944"/>
+        <Button Command="{Binding OpenPasswordView}" Margin="484,10,0,0" Height="49" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF3387EC" RenderTransformOrigin="-7.72,2.224">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse StrokeThickness="2" Stroke="Black" Fill="#FF368CF3">
+                        <Ellipse x:Name="ell" StrokeThickness="2" Stroke="Black" Fill="#FF368CF3">
                         </Ellipse>
                         <Image  RenderTransformOrigin="0.321,0.5" Width="39" Margin="6,-9,5,10" Source="..\Images\go.png" />
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter TargetName="ell" Property="Stroke" Value="#FF2A80F9" />
+                            <Setter TargetName="ell" Property="Fill" Value="#FFA7CBFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
         <Button Command="{Binding OpenNumbersView}" Content="Номера" HorizontalAlignment="Left" Margin="316,146,0,0" VerticalAlignment="Top" Width="202" BorderBrush="#FF040944" Height="41" Background="#D870B4DB"/>
-        <Label Content="Гостиница&#xD;&#xA;" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="143" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
+        <Label Content="Гостиница" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="143" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC"/>

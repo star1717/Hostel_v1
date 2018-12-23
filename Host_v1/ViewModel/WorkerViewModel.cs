@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,14 +12,16 @@ namespace Host_v1.ViewModel
 {
     class WorkerViewModel : INotifyPropertyChanged
     {
-        Model1 db;
+        DbOperations db;
         private Worker selectedWorker;
         public ObservableCollection<Worker> workers { get; set; }
-        public WorkerViewModel(Model1 db)
+        IDialogService ds;
+        public WorkerViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            workers = new ObservableCollection<Worker>(db.Worker);
-            SelectedWorker=db.Worker.FirstOrDefault();
+            workers = new ObservableCollection<Worker>(db.GetAllWorker());
+            SelectedWorker=db.GetAllWorker().FirstOrDefault();
         }
         public Worker SelectedWorker
         {
@@ -40,7 +43,7 @@ namespace Host_v1.ViewModel
                         Worker worker = new Worker() { Fio = "Новый сотрудник", Birth=DateTime.Now };
                         workers.Insert(0, worker);
                         SelectedWorker = worker;
-                        MessageBox.Show("Новый сотрудник добавлен!");
+                        ds.ShowMessage("Новый сотрудник добавлен!");
                     }));
             }
         }
@@ -53,12 +56,12 @@ namespace Host_v1.ViewModel
                     (removeWorker = new RelayCommand(obj =>
                     {
 
-                        if (db.Worker.Find(SelectedWorker.ID_worker) != null)
+                        if (db.FindWorker(SelectedWorker.ID_worker) != null)
                         {
-                            db.Worker.Remove(SelectedWorker);
+                            db.RemoveWorker(SelectedWorker);
                             workers.Remove(SelectedWorker);
-                            db.SaveChanges();
-                            MessageBox.Show("Объект удален!");
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
                         }
                         else workers.Remove(SelectedWorker);
                     },
@@ -75,13 +78,13 @@ namespace Host_v1.ViewModel
                     (saveWorker = new RelayCommand(obj =>
                     {
                     
-                            var Worker = db.Worker.Find(SelectedWorker.ID_worker);
+                            var Worker = db.FindWorker(SelectedWorker.ID_worker);
                             if (Worker == null)
                             {
-                                db.Worker.Add(SelectedWorker);
+                                db.AddWorker(SelectedWorker);
                             }
-                            db.SaveChanges();
-                            MessageBox.Show("Изменения сохранены!");
+                            db.Save();
+                            ds.ShowMessage("Изменения сохранены!");
                         
                        
                     },

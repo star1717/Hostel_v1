@@ -12,10 +12,12 @@ namespace Host_v1.ViewModel
 {
     class MainViewModel2 : INotifyPropertyChanged, IRequireViewIdentification
     {
-        public Model1 db;
-        public MainViewModel2(Model1 db)
+        private DbOperations db;
+        private IDialogService ds;
+        public MainViewModel2(DbOperations db,IDialogService ds)
         {
-            this.db = db;
+            this.ds = ds;
+            this.db = db;           
             ViewID = Guid.NewGuid();
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -43,7 +45,7 @@ namespace Host_v1.ViewModel
                     (openReportView = new RelayCommand(obj =>
                     {
                         ReportView vm = new ReportView();
-                        vm.DataContext =new ReportViewModel(db);
+                        vm.DataContext =new ReportViewModel(db, ds);
                         vm.Show();
                     }));
             }
@@ -57,7 +59,7 @@ namespace Host_v1.ViewModel
                     (openWorkerView = new RelayCommand(obj =>
                     {
                         WorkerView vm = new WorkerView();
-                        vm.DataContext = new WorkerViewModel(db);
+                        vm.DataContext = new WorkerViewModel(db,ds);
                         vm.Show();
                     }));
             }

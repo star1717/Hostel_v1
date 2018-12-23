@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="Оплата" Height="375.027" Width="800">
+        Title="Оплата" Height="390.02" Width="746.452" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0.19"/>
@@ -13,18 +13,18 @@
             <GradientStop Color="Gainsboro" Offset="0.823"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
+    <Grid Margin="8,0,-8,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="173*"/>
             <RowDefinition Height="171*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel DataContext="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"   Margin="12,121,408,119" Grid.RowSpan="2">
+        <StackPanel DataContext="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"   Margin="12,121,408,0" Grid.RowSpan="2" Height="104" VerticalAlignment="Top">
             <TextBlock Foreground="White" Height="23" TextWrapping="Wrap" Text="Паспорт:"/>
             <TextBlock Foreground="White"  Height="23" TextWrapping="Wrap" Text="{Binding Passport}"/>
         </StackPanel>
 
-        <DatePicker SelectedDate="{Binding Date}" Margin="11,22.389,408,0" Height="33" VerticalAlignment="Top" Grid.Row="1">
+        <DatePicker SelectedDate="{Binding Date}" Margin="11,22,0,0" Height="33" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Left" Width="373">
             <DatePicker.Style>
                 <Style>
                     <Style.Triggers>
@@ -44,7 +44,7 @@
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
-                    <GradientStop Color="#FF4253FD" Offset="0.54"/>
+                    <GradientStop Color="#FF5098FF" Offset="0.54"/>
                 </LinearGradientBrush>
             </Label.Foreground>
             <Label.Background>
@@ -93,7 +93,7 @@
         <DatePicker SelectedDate="{Binding }" Margin="-10,226,390,100" Grid.ColumnSpan="2"/>-->
         <Button Command="{Binding PayAccommodation}" Content="Оплатить" HorizontalAlignment="Left" Margin="313,125,0,0" VerticalAlignment="Top" Width="220" Height="36" Grid.Row="1"/>
         <CheckBox IsChecked="{Binding ChekUchet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="checkBox1" Foreground="White" Content="Оплатить проживание" HorizontalAlignment="Left" Margin="11,50,0,0" VerticalAlignment="Top" Height="15" Width="144"/>
-        <CheckBox IsChecked="{Binding ChekService}" x:Name="checkBox2" Foreground="White" Content="Оплатить дополнительные услуги" Margin="461,50,125,0" VerticalAlignment="Top" Height="15"/>
+        <CheckBox IsChecked="{Binding ChekService}" x:Name="checkBox2" Foreground="White" Content="Оплатить дополнительные услуги" Margin="417,50,0,0" VerticalAlignment="Top" Height="15" HorizontalAlignment="Left" Width="206"/>
         <TextBlock HorizontalAlignment="Left" Margin="11,172,0,0" Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата оплаты:" VerticalAlignment="Top" Width="372" Grid.RowSpan="2"/>
         <ComboBox HorizontalAlignment="Left" Margin="12,77,0,0" VerticalAlignment="Top" Width="363" 
                 ItemsSource="{Binding SelectedClient.Uchet1, UpdateSourceTrigger=PropertyChanged}"
@@ -112,16 +112,14 @@
                 </Style>
             </ComboBox.Style>
         </ComboBox>
-        <Label Foreground="White" Content="Стоимость услуг: " Margin="465,27,163,0" VerticalAlignment="Top" Height="26" Grid.Row="1"/>
-        <!--<Label  Content="{Binding CostLog}" HorizontalAlignment="Left" Margin="347,226,0,0" VerticalAlignment="Top" Width="48" Grid.Column="1"/>-->
-        <Label Foreground="White" Content="Сумма оплаты: " Margin="465,53,163,0" VerticalAlignment="Top" Height="26" Grid.Row="1"/>
-        <!--<Label  Content="{Binding Sum}" HorizontalAlignment="Left" Margin="294,226,0,0" VerticalAlignment="Top" Width="48" Grid.Column="1"/>-->
-        <ComboBox Margin="461,126,30,0" VerticalAlignment="Top"          
+        <Label Foreground="White" Content="Стоимость услуг: " Margin="421,22,0,0" VerticalAlignment="Top" Height="26" Grid.Row="1" HorizontalAlignment="Left" Width="164"/>
+        <Label Foreground="White" Content="Сумма оплаты: " Margin="421,48,0,0" VerticalAlignment="Top" Height="26" Grid.Row="1" HorizontalAlignment="Left" Width="164"/>
+        <ComboBox Margin="417,126,0,0" VerticalAlignment="Top"          
                 ItemsSource="{Binding SelectedClient.Log, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsSynchronizedWithCurrentItem="True"                     
                 DisplayMemberPath="Service1.Name"
-                SelectedValuePath="ID_line" Height="22">
+                SelectedValuePath="ID_line" Height="22" HorizontalAlignment="Left" Width="301">
             <ComboBox.Style>
                 <Style>
                     <Style.Triggers>
@@ -137,7 +135,7 @@
                 </Style>
             </ComboBox.Style>
         </ComboBox>
-        <RadioButton x:Name="radio1" IsChecked="{Binding RadioBut}" Foreground="White" Content="Оплатить все услуги" Margin="461,76,201,0" VerticalAlignment="Top" Height="15">
+        <RadioButton x:Name="radio1" IsChecked="{Binding RadioBut}" Foreground="White" Content="Оплатить все услуги" Margin="417,76,0,0" VerticalAlignment="Top" Height="15" HorizontalAlignment="Left" Width="130">
             <RadioButton.Style>
                 <Style>
                     <Style.Triggers>
@@ -149,15 +147,15 @@
                 </Style>
             </RadioButton.Style>
         </RadioButton>
-        <Label Foreground="White" Content="Стоимость проживания: " Margin="465,0,165,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,2.46" Height="26" Grid.Row="1"/>
+        <Label Foreground="White" Content="Стоимость проживания: " Margin="421,176,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,2.46" Height="26" HorizontalAlignment="Left" Width="162" Grid.RowSpan="2"/>
         <!--<Label Foreground="White" Content="{Binding CostLog}" HorizontalAlignment="Right" Margin="0,0.389,144,0" VerticalAlignment="Top" RenderTransformOrigin="0.386,0.842" Height="26" Width="10" Grid.Row="1"/>-->
         <!--<Label Foreground="White" Content="{Binding Sum}" HorizontalAlignment="Right" Margin="0,26.389,144,0" VerticalAlignment="Top" Height="26" Width="10" Grid.Row="1"/>-->
         <!--<Label Foreground="White" Content="{Binding CostUchet}" HorizontalAlignment="Right" Margin="0,147,144,0" VerticalAlignment="Top" Height="10" Width="10"/>-->
-        <Label Foreground="White" Content="{Binding Sum}" HorizontalAlignment="Right" Margin="0,53,116,0" VerticalAlignment="Top" Height="26" Width="42" Grid.Row="1"/>
-        <Label Foreground="White" Content="{Binding CostUchet}" HorizontalAlignment="Right" Margin="0,1,116,0" VerticalAlignment="Top" Height="25" Width="42" Grid.Row="1"/>
-        <Label Foreground="White" Content="{Binding CostLog}" HorizontalAlignment="Right" Margin="0,27,116,0" VerticalAlignment="Top" Height="25" Width="42" Grid.Row="1"/>
-        <GroupBox Foreground="White" Header="Чек: " BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="102" Margin="461,153,0,0" VerticalAlignment="Top" Width="301" Grid.RowSpan="2" FontWeight="Bold"/>
-        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="461,99,0,0" TextWrapping="Wrap" Text="Услуга: " VerticalAlignment="Top" Height="22" Width="301">
+        <Label Foreground="White" Content="{Binding Sum}" HorizontalAlignment="Left" Margin="590,48,0,0" VerticalAlignment="Top" Height="26" Width="42" Grid.Row="1"/>
+        <Label Foreground="White" Content="{Binding CostUchet}" HorizontalAlignment="Left" Margin="590,177,0,0" VerticalAlignment="Top" Height="25" Width="42" Grid.RowSpan="2"/>
+        <Label Foreground="White" Content="{Binding CostLog}" HorizontalAlignment="Left" Margin="590,22,0,0" VerticalAlignment="Top" Height="25" Width="42" Grid.Row="1"/>
+        <GroupBox Foreground="White" Header="Чек: " BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="102" Margin="417,153,0,0" VerticalAlignment="Top" Width="301" Grid.RowSpan="2" FontWeight="Bold"/>
+        <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="417,99,0,0" TextWrapping="Wrap" Text="Услуга: " VerticalAlignment="Top" Height="22" Width="301">
             <TextBlock.Style>
                 <Style>
                     <Style.Triggers>

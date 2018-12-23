@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,14 +12,16 @@ namespace Host_v1.ViewModel
 {
     class ServiceViewModel: INotifyPropertyChanged
     {
-        Model1 db;
+        DbOperations db;
         private Service selectedService;
         public ObservableCollection<Service> Services { get; set; }
-        public ServiceViewModel(Model1 db)
+        IDialogService ds;
+        public ServiceViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            Services = new ObservableCollection<Service>(db.Service);
-            SelectedService=db.Service.FirstOrDefault();
+            Services = new ObservableCollection<Service>(db.GetAllService());
+            SelectedService=db.GetAllService().FirstOrDefault();
         }
         public Service SelectedService
         {
@@ -40,7 +43,7 @@ namespace Host_v1.ViewModel
                         Service service = new Service() { Name = "Новая услуга"};
                         Services.Insert(0, service);
                         SelectedService = service;
-                        MessageBox.Show("Новая услуга добавлена!");
+                        ds.ShowMessage("Новая услуга добавлена!");
                     }));
             }
         }
@@ -53,12 +56,12 @@ namespace Host_v1.ViewModel
                     (removeService = new RelayCommand(obj =>
                     {
 
-                        if (db.Service.Find(SelectedService.ID_service) != null)
+                        if (db.FindService(SelectedService.ID_service) != null)
                         {
-                            db.Service.Remove(SelectedService);
+                            db.RemoveService(SelectedService);
                             Services.Remove(SelectedService);
-                            db.SaveChanges();
-                            MessageBox.Show("Объект удален!");
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
                         }
                         else Services.Remove(SelectedService);
                     },
@@ -76,13 +79,13 @@ namespace Host_v1.ViewModel
                     {
                         if (SelectedService != null)
                         {
-                            var service = db.Service.Find(SelectedService.ID_service);
+                            var service = db.FindService(SelectedService.ID_service);
                             if (service == null)
                             {
-                                db.Service.Add(SelectedService);
+                                db.AddService(SelectedService);
                             }
-                            db.SaveChanges();
-                            MessageBox.Show("Изменения сохранены!");
+                            db.Save();
+                            ds.ShowMessage("Изменения сохранены!");
                         }
 
                     },

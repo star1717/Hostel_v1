@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="ReportView" Height="419" Width="632">
-    
+        Title="ReportView" Height="419" Width="632" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="StyleForListView" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0.0" Color="#3D1701" />
+                            <GradientStop Offset="1.0" Color="#63030C" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0.19"/>
@@ -24,7 +39,7 @@
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
-                    <GradientStop Color="#FF4253FD" Offset="0.54"/>
+                    <GradientStop Color="#FF4F96FC" Offset="0.54"/>
                 </LinearGradientBrush>
             </Label.Foreground>
             <Label.Background>
@@ -40,6 +55,7 @@
                   AutoGenerateColumns="False" Height="223" Margin="10,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" ItemsSource="{Binding report}"
                   Name="dataGrid4" >
             <!--DataContext="{Binding report}"-->
+           
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Клиент" Binding="{Binding Path=Client1.Fio}"/>
                 <DataGridTextColumn  Header="Дата заезда" Binding="{Binding Path=date_start , StringFormat=MM/dd/yyyy}"/>

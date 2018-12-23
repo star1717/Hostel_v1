@@ -17,7 +17,7 @@ namespace Host_v1
             switch (p_viewIndex)
             {
                 case 0:
-                    control = new AddClient();
+                    control = new ClientView();
                     break;
                 //case 1:
                 //    //control = new ShowListView();

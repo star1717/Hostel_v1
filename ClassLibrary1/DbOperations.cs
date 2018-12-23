@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Host_v1
 {
-    class DbOperations
+    public class DbOperations
     {
         Model1 db;
         public DbOperations()
@@ -62,13 +62,93 @@ namespace Host_v1
         {
             return db.Kategory.Find(id);
         }
+        public Worker FindWorker(int id)
+        {
+            return db.Worker.Find(id);
+        }
+        public Log FindLog(int id)
+        {
+            return db.Log.Find(id);
+        }
+        public Number FindNumber(int id)
+        {
+            return db.Number.Find(id);
+        }
+        public Pay FindPay(int id)
+        {
+            return db.Pay.Find(id);
+        }
+        public Uchet FindUchet(int id)
+        {
+            return db.Uchet.Find(id);
+        }
+        public Service FindService(int id)
+        {
+            return db.Service.Find(id);
+        }
+        public void RemoveKategory(Kategory kategory)
+        {
+            db.Kategory.Remove(kategory);
+        }
+        public void RemoveWorker(Worker worker)
+        {
+            db.Worker.Remove(worker);
+        }
+        public void RemoveLog(Log log)
+        {
+            db.Log.Remove(log);
+        }
+        public void RemoveNumber(Number number)
+        {
+            db.Number.Remove(number);
+        }
+        public void RemovePay(Pay pay)
+        {
+            db.Pay.Remove(pay);
+        }
         public void RemoveClient(Client client)
         {
             db.Clients.Remove(client);
         }
+        public void RemoveUchet(Uchet uchet)
+        {
+            db.Uchet.Remove(uchet);
+        }
+        public void RemoveService(Service service)
+        {
+            db.Service.Remove(service);
+        }
         public void AddClient(Client client)
         {
             db.Clients.Add(client);
+        }
+        public void AddKategory(Kategory kategory)
+        {
+            db.Kategory.Add(kategory);
+        }
+        public void AddWorker(Worker worker)
+        {
+            db.Worker.Add(worker);
+        }
+        public void AddLog(Log log)
+        {
+            db.Log.Add(log);
+        }
+        public void AddNumber(Number number)
+        {
+            db.Number.Add(number);
+        }
+        public void AddUchet(Uchet uchet)
+        {
+            db.Uchet.Add(uchet);
+        }
+        public void AddPay(Pay pay)
+        {
+            db.Pay.Add(pay);
+        }
+        public void AddService(Service service)
+        {
+            db.Service.Add(service);
         }
         public void Save()
         {

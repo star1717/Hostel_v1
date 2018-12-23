@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,18 +14,20 @@ namespace Host_v1.ViewModel
 {
     class ClientViewModel : INotifyPropertyChanged
     {
-        public Model1 db;
+        public DbOperations db;
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<Client> clients { get; set; }
         private Client selectedClient;
-        public ClientViewModel(Model1 db)
+        private IDialogService ds;
+        public ClientViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            clients = new ObservableCollection<Client>(db.Clients);
+            clients = new ObservableCollection<Client>(db.GetAllClient());
             clients.OrderBy(u => u.FIO);
-            SelectedClient=db.Clients.FirstOrDefault();
+            SelectedClient= db.GetAllClient().FirstOrDefault();
         }
-
+        
         public Client SelectedClient
         {
             get { return selectedClient; }
@@ -46,7 +49,8 @@ namespace Host_v1.ViewModel
                         Client client = new Client() { Fio = "Новый клиент" , Birth=DateTime.Now};
                         clients.Insert(0, client);
                         SelectedClient = client;
-                        MessageBox.Show("Новый объект добавлен!");
+                        ds.ShowMessage("Новый объект добавлен!");
+                      
                     }));
             }
         }
@@ -59,14 +63,14 @@ namespace Host_v1.ViewModel
                     (removeClient = new RelayCommand(obj =>
                     {
 
-                        if (db.Clients.Find(SelectedClient.ID_client) != null)
+                        if (db.FindClient(SelectedClient.ID_client) != null)
                         {
-                            db.Clients.Remove(SelectedClient);
+                            db.RemoveClient(SelectedClient);
                             clients.Remove(SelectedClient);
-                            db.SaveChanges();                          
+                            db.Save();                          
                         }
                         else clients.Remove(SelectedClient);
-                        MessageBox.Show("Объект удален!");                                 
+                        ds.ShowMessage("Объект удален!");                                 
                     },
                     (obj) => SelectedClient != null));
             }
@@ -82,15 +86,15 @@ namespace Host_v1.ViewModel
                     {
                         if (SelectedClient != null)
                         {
-                            var client = db.Clients.Find(SelectedClient.ID_client);
+                            var client = db.FindClient(SelectedClient.ID_client);
                             if (client == null)
                             {
-                                db.Clients.Add(SelectedClient);
+                                db.AddClient(SelectedClient);
                             }
-                            db.SaveChanges();
-                            MessageBox.Show("Изменения сохранены!");
+                            db.Save();
+                            ds.ShowMessage("Изменения сохранены!");
                         }
-                        else MessageBox.Show("Пожалуйста, выберете клиента из списка!");
+                        else ds.ShowMessage("Пожалуйста, выберете клиента из списка!");
                     },obj=>CanExecuteSave()));     
             }
         }

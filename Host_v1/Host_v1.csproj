@@ -89,6 +89,7 @@
     <Compile Include="DefaultDialogService.cs" />
     <Compile Include="Interfaces\IDialogService.cs" />
     <Compile Include="Interfaces\IRequireViewIdentification.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel1.cs" />

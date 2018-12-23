@@ -20,15 +20,13 @@ namespace Host_v1
     /// <summary>
     /// Логика взаимодействия для AddClient.xaml
     /// </summary>
-    public partial class AddClient : Window
+    public partial class ClientView : Window
     {
-        //private const string Filename = "C:/Users/vikul/source/repos/Host_v1/Host_v1/Images/lux3.png";
-
-        public AddClient()
-        {
-            InitializeComponent();
-            //DataContext = new ClientViewModel(db);
     
+
+        public ClientView()
+        {
+            InitializeComponent();    
         }
     }
 }

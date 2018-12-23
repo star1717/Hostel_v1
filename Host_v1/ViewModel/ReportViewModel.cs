@@ -1,4 +1,5 @@
 ﻿
+using Host_v1.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ namespace Host_v1.ViewModel
 {
     class ReportViewModel : INotifyPropertyChanged
     {
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Uchet> uchet { get; set; }
         public ObservableCollection<Uchet> report { get; set; }
         private int count;
@@ -24,10 +25,12 @@ namespace Host_v1.ViewModel
                 OnPropertyChanged("Count");
             }
         }
-        public ReportViewModel(Model1 db)
+        IDialogService ds;
+        public ReportViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;           
-            uchet = new ObservableCollection<Uchet>(db.Uchet);
+            uchet = new ObservableCollection<Uchet>(db.GetAllUchet());
             report = new ObservableCollection<Uchet>();
             SelectedDateStart = DateTime.Now;
             SelectedDateFinish = DateTime.Now;
@@ -65,8 +68,7 @@ namespace Host_v1.ViewModel
 
                     foreach (var item in uchet)
                     {
-                        if (SelectedDateStart <= item.Date_start && SelectedDateFinish >= item.Date_finish && SelectedDateFinish >= item.Date_start && SelectedDateStart <= item.Date_finish)
-                            //if (SelectedDateStart <= item.Date_start && SelectedDateFinish >= item.Date_start)
+                        if (SelectedDateStart <= item.Date_start && SelectedDateFinish >= item.Date_finish && SelectedDateFinish >= item.Date_start && SelectedDateStart <= item.Date_finish)                 
                         {
                             Uchet item2 = item;
                             report.Insert(0,item2);

@@ -1,4 +1,5 @@
 ﻿
+using Host_v1.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,18 +16,20 @@ namespace Host_v1.ViewModel
     class LogViewModel : INotifyPropertyChanged
     {
         private Log selectedLog;
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Log> log { get; set; }
         public ObservableCollection<Client> clients { get; set; }
         public ObservableCollection<Service> services { get; set; }
-        public LogViewModel(Model1 db)
+        IDialogService ds;
+        public LogViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            this.db.Log.Load();
-            log = new ObservableCollection<Log>(this.db.Log);
-            clients = new ObservableCollection<Client>(this.db.Clients);
-            services = new ObservableCollection<Service>(this.db.Service);
-            SelectedLog=db.Log.FirstOrDefault();
+       
+            log = new ObservableCollection<Log>(this.db.GetAllLog());
+            clients = new ObservableCollection<Client>(this.db.GetAllClient());
+            services = new ObservableCollection<Service>(this.db.GetAllService());
+            SelectedLog=log.FirstOrDefault();
         }
 
         public Log SelectedLog
@@ -48,12 +51,12 @@ namespace Host_v1.ViewModel
                     (removeLog = new RelayCommand(obj =>
                     {
 
-                        if (db.Log.Find(SelectedLog.ID_line) != null)
+                        if (db.FindLog(SelectedLog.ID_line) != null)
                         {
-                            db.Log.Remove(SelectedLog);
+                            db.RemoveLog(SelectedLog);
                             log.Remove(SelectedLog);
-                            db.SaveChanges();
-                            MessageBox.Show("Объект удален!");
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
                         }
                         else log.Remove(SelectedLog);
                     },
@@ -68,10 +71,10 @@ namespace Host_v1.ViewModel
                 return addLog ??
                     (addLog = new RelayCommand(obj =>
                     {
-                        Log _log = new Log() {Client1=new Client() { Fio="Новый объект"} };
+                        Log _log = new Log() {Client1=new Client() { Fio="Новый объект"}, Date=DateTime.Now };
                         log.Insert(0,_log);
                         SelectedLog = _log;
-                        MessageBox.Show("Новый объект добавлен!");
+                        ds.ShowMessage("Новый объект добавлен!");
                     }));
             }
         }
@@ -87,20 +90,20 @@ namespace Host_v1.ViewModel
                         {
                           if (SelectedLog != null)
                           {
-                            var log = db.Log.Find(SelectedLog.ID_line);
+                            var log = db.FindLog(SelectedLog.ID_line);
                             if (log == null)
                             {
-                                db.Log.Add(SelectedLog);
+                                db.AddLog(SelectedLog);
                             }
                          
-                            db.SaveChanges();
-                            MessageBox.Show("Изменения сохранены!");
+                            db.Save();
+                                ds.ShowMessage("Изменения сохранены!");
                           }
-                          else MessageBox.Show("Пожалуйста, выберете запись из списка!");
+                          else ds.ShowMessage("Пожалуйста, выберете запись из списка!");
                         }
                         catch
                         {
-                            MessageBox.Show("Невозможно изменить объект!");
+                            ds.ShowMessage("Невозможно изменить объект!");
                         }
 
                     }));

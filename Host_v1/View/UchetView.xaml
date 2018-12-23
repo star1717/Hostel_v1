@@ -5,12 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="Проживание" Height="638.866" Width="800">
+        Title="Проживание" Height="638.866" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="Lststyle" TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Background="Transparent" Padding="7" SnapsToDevicePixels="True">
+
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="ListBoxItem.IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF88C9FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0.19"/>
-            <GradientStop Color="#FF1D6FCD" Offset="0.483"/>
-            <GradientStop Color="Gainsboro" Offset="0.823"/>
+            <GradientStop Color="Black" Offset="0.047"/>
+            <GradientStop Color="#FF1D6FCD" Offset="0.632"/>
+            <GradientStop Color="Gainsboro" Offset="0.818"/>
         </LinearGradientBrush>
     </Window.Background>
     <Grid RenderTransformOrigin="0.564,0.492" Margin="27,85,2,0">
@@ -94,7 +114,7 @@
             </TextBlock>
         </StackPanel>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding Uchets}" SelectedItem="{Binding SelectedUchet, Mode=TwoWay}" Margin="0,-41,144,63">
+        <ListBox ItemContainerStyle="{StaticResource Lststyle}" Grid.Column="0" ItemsSource="{Binding Uchets}" SelectedItem="{Binding SelectedUchet, Mode=TwoWay}" Margin="0,-41,144,63">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -115,7 +135,7 @@
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Ellipse x:Name="ell" Margin="7,0,0,-9" />
                         <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -150,7 +170,7 @@
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
-                    <GradientStop Color="#FF4253FD" Offset="0.54"/>
+                    <GradientStop Color="#FF4F96FC" Offset="0.54"/>
                 </LinearGradientBrush>
             </Label.Foreground>
             <Label.Background>
@@ -174,13 +194,7 @@
                 IsSynchronizedWithCurrentItem="True"                     
                 DisplayMemberPath="ID"
                 SelectedValuePath="ID" Height="23"/>
-        <TextBlock HorizontalAlignment="Left" Margin="381,248,0,0" TextWrapping="Wrap" Text="Администратор:" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="372" Foreground="White" Height="23"/>
-        <ComboBox HorizontalAlignment="Left" Margin="381,271,0,0" VerticalAlignment="Top" Width="363" Grid.ColumnSpan="2" Height="23"
-                ItemsSource="{Binding Workers, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedUchet.Worker1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsSynchronizedWithCurrentItem="True"                     
-                DisplayMemberPath="Fio"
-                SelectedValuePath="ID_worker" />
-
+        <TextBlock HorizontalAlignment="Left" Margin="381,248,0,0" TextWrapping="Wrap" Text="Администратор:" VerticalAlignment="Top" Width="99" Foreground="White" Height="23"/>
+        <TextBlock Foreground="White" Text="{Binding SelectedUchet.Worker1.Fio}" HorizontalAlignment="Left" Margin="485,248,0,0" VerticalAlignment="Top" Width="259" Grid.ColumnSpan="2" Height="23"/>
     </Grid>
 </Window>

@@ -5,12 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="Номера" Height="486.321" Width="800">
+        Title="Номера" Height="486.321" Width="800" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.FontSize" Value="18"></Setter>
             <Setter Property="Control.Background" Value="#FF70B4DB"></Setter>
+        </Style>
+        <Style x:Key="Lststyle" TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Background="Transparent" Padding="7" SnapsToDevicePixels="True">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="ListBoxItem.IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF88C9FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Window.Background>
@@ -21,7 +38,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid >
-        <ListBox Grid.Column="0" ItemsSource="{Binding numbers}" SelectedItem="{Binding SelectedNumber, Mode=TwoWay}" Margin="24,40,402,0" RenderTransformOrigin="0.472,0.711" Height="354" VerticalAlignment="Top">
+        <ListBox ItemContainerStyle="{StaticResource Lststyle}" Grid.Column="0" ItemsSource="{Binding numbers}" SelectedItem="{Binding SelectedNumber, Mode=TwoWay}" Margin="24,40,402,0" RenderTransformOrigin="0.472,0.711" Height="354" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
@@ -40,8 +57,8 @@
         <Label Content="Справочник номеров" HorizontalAlignment="Left" Margin="24,5,0,0" VerticalAlignment="Top" Width="393" FontFamily="Wide Latin" FontSize="24" FontWeight="Bold" Height="35">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFD2D5EC" Offset="0.273"/>
-                    <GradientStop Color="#FF4253FD" Offset="0.54"/>
+                    <GradientStop Color="White" Offset="0.929"/>
+                    <GradientStop Color="#FF4F96FC" Offset="0.402"/>
                 </LinearGradientBrush>
             </Label.Foreground>
             <Label.Background>
@@ -91,7 +108,7 @@
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
-                        <Ellipse x:Name="ell" Margin="10,0,0,-9" />
+                        <Ellipse x:Name="ell" Margin="7,0,0,-9" />
                         <Image  RenderTransformOrigin="0.321,0.5" Width="42" Margin="0,0,0,-9" Source="..\Images\Save4.png" Height="Auto" HorizontalAlignment="Right" />
                     </Grid>
                     <ControlTemplate.Triggers>

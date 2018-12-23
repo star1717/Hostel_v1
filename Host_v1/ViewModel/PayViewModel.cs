@@ -1,4 +1,5 @@
 ﻿
+using Host_v1.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,17 +13,18 @@ namespace Host_v1.ViewModel
 {
     class PayViewModel: INotifyPropertyChanged
     {
-        public Model1 db;      
+        public DbOperations db;      
         public ObservableCollection<Client> clients { get; set; }
         private int costUchet { get; set; }
         private int costLog { get; set; }
         private int sum;
-        public PayViewModel(Model1 db)
+        IDialogService ds;
+        public PayViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            clients = new ObservableCollection<Client>(db.Clients);
-            Date = DateTime.Now;
-            //Uchets = new ObservableCollection<Uchet>(db.Uchet.Where(u => u.Pay != null).ToList());
+            clients = new ObservableCollection<Client>(db.GetAllClient());
+            Date = DateTime.Now;      
         }
         private bool chekUchet;
         public bool ChekUchet
@@ -176,18 +178,16 @@ namespace Host_v1.ViewModel
                     {
                         if (ChekUchet)
                         {
-                            if (SelectedUchet == null)
-                            {
+                 
                               Pay pay = new Pay();
                               pay.Date = Date;
                               pay.Client1 = SelectedClient;
                               pay.Sum = this.Sum;
-                              db.Pay.Add(pay);
+                              db.AddPay(pay);
                               SelectedUchet.Pay1=pay;
-                              db.SaveChanges();
-                              MessageBox.Show("Проживание оплачено!");
-                            }
-                            else MessageBox.Show("Пожалуйста, заполните все поля!");
+                              db.Save();
+                              ds.ShowMessage("Проживание оплачено!");
+        
                         }
                         if (ChekService)
                         {
@@ -199,11 +199,11 @@ namespace Host_v1.ViewModel
                                     pay.Date = Date;
                                     pay.Client1 = SelectedClient;
                                     pay.Sum = item.Service1.Pay;
-                                    db.Pay.Add(pay);
+                                    db.AddPay(pay);
                                     item.Pay = pay;
                                 }
-                                db.SaveChanges();
-                                MessageBox.Show("Все услуги оплачены!");
+                                db.Save();
+                                ds.ShowMessage("Все услуги оплачены!");
                             }
                             else
                             {
@@ -211,12 +211,11 @@ namespace Host_v1.ViewModel
                                 pay.Date = Date;
                                 pay.Client1 = SelectedClient;
                                 pay.Sum = SelectedLog.Service1.Pay;
-                                db.Pay.Add(pay);
+                                db.AddPay(pay);
                                 SelectedLog.Pay = pay;
-                                db.SaveChanges();
-                                MessageBox.Show("Услуга оплачена!");
+                                db.Save();
+                                ds.ShowMessage("Услуга оплачена!");
                             }
-
                         }
                     },obj=>CanExecute()));
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Host_v1.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ namespace Host_v1.ViewModel
 {
     class UchetViewModel : INotifyPropertyChanged
     {
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Uchet> Uchets { get; set; }
         public ObservableCollection<Worker> Workers { get; set; }
         public ObservableCollection<Client> Clients { get; set; }
@@ -27,14 +28,16 @@ namespace Host_v1.ViewModel
                 OnPropertyChanged("SelectedUchet");
             }
         }
-        public UchetViewModel(Model1 db)
+        IDialogService ds;
+        public UchetViewModel(DbOperations db, IDialogService ds)
         {
+            this.ds = ds;
             this.db = db;
-            Uchets = new ObservableCollection<Uchet>(db.Uchet.OrderBy((u)=>u.Client.FIO));
-            Workers = new ObservableCollection<Worker>(db.Worker);
-            Clients = new ObservableCollection<Client>(db.Clients);
-            Numbers = new ObservableCollection<Number>(db.Number);
-            SelectedUchet = db.Uchet.FirstOrDefault();
+            Uchets = new ObservableCollection<Uchet>(db.GetAllUchet().OrderBy((u)=>u.Client.FIO));
+            Workers = new ObservableCollection<Worker>(db.GetAllWorker());
+            Clients = new ObservableCollection<Client>(db.GetAllClient());
+            Numbers = new ObservableCollection<Number>(db.GetAllNumber());
+            SelectedUchet = Uchets.FirstOrDefault();
         }
         private RelayCommand addUchet;
         public RelayCommand AddUchet
@@ -44,10 +47,10 @@ namespace Host_v1.ViewModel
                 return addUchet ??
                     (addUchet = new RelayCommand(obj =>
                     {
-                        Uchet uchet = new Uchet() { Date_start = DateTime.Now, Date_finish = DateTime.Now};
+                        Uchet uchet = new Uchet() { Date_start = DateTime.Now, Date_finish = DateTime.Now, Worker= db.FindWorker(User.ID_worker)};
                         Uchets.Insert(0, uchet);
                         SelectedUchet = uchet;
-                        MessageBox.Show("Новый объект обавлен!");
+                        ds.ShowMessage("Новый объект обавлен!");
                     }));
             }
         }
@@ -60,12 +63,12 @@ namespace Host_v1.ViewModel
                     (removeUchet = new RelayCommand(obj =>
                     {
 
-                        if (db.Uchet.Find(SelectedUchet.ID_ychet) != null)
+                        if (db.FindUchet(SelectedUchet.ID_ychet) != null)
                         {
-                            db.Uchet.Remove(SelectedUchet);
+                            db.RemoveUchet(SelectedUchet);
                             Uchets.Remove(SelectedUchet);
-                            db.SaveChanges();
-                            MessageBox.Show("Объект удален!");
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
                         }
                         else Uchets.Remove(SelectedUchet);
                     },
@@ -81,13 +84,13 @@ namespace Host_v1.ViewModel
                     (saveUchet = new RelayCommand(obj =>
                     {
 
-                        var uchet = db.Uchet.Find(SelectedUchet.ID_ychet);
+                        var uchet = db.FindUchet(SelectedUchet.ID_ychet);
                         if (uchet == null)
                         {
-                            db.Uchet.Add(SelectedUchet);
+                            db.AddUchet(SelectedUchet);
                         }
-                        db.SaveChanges();
-                        MessageBox.Show("Изменения сохранены!");
+                        db.Save();
+                        ds.ShowMessage("Изменения сохранены!");
                     },
                     (obj) => (SelectedUchet != null) && SelectedUchet.Client1 != null && SelectedUchet.Number1 != null && SelectedUchet.Worker1 != null));
             }

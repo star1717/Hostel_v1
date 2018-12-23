@@ -13,15 +13,72 @@ namespace Host_v1.ViewModel
 {
     class TypeNumberViewModel : INotifyPropertyChanged
     {
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Kategory> kategory { get; set; }
-        public IDialogService dialog;
-        public TypeNumberViewModel(Model1 db, IDialogService ds)
+        public IDialogService ds;
+        public TypeNumberViewModel(DbOperations db, IDialogService ds)
         {
             this.db = db;
-            dialog = ds;
-            kategory = new ObservableCollection<Kategory>(db.Kategory);
-            SelectedKategory=db.Kategory.FirstOrDefault();
+            this.ds = ds;
+            kategory = new ObservableCollection<Kategory>(db.GetAllKategory());
+            SelectedKategory=db.GetAllKategory().FirstOrDefault();
+        }
+        private RelayCommand addKategory;
+        public RelayCommand AddKategory
+        {
+            get
+            {
+                return addKategory ??
+                    (addKategory = new RelayCommand(obj =>
+                    {
+                        Kategory type = new Kategory() { Name="Новая категория" };
+                        kategory.Insert(0, type);
+                        SelectedKategory = type;
+                        ds.ShowMessage("Новый тип добавлен!");
+                    }));
+            }
+        }
+        private RelayCommand removeKategory;
+        public RelayCommand RemoveKategory
+        {
+            get
+            {
+                return removeKategory ??
+                    (removeKategory = new RelayCommand(obj =>
+                    {
+
+                        if (db.FindWorker(SelectedKategory.ID_type) != null)
+                        {
+                            db.RemoveKategory(SelectedKategory);
+                            kategory.Remove(SelectedKategory);
+                            db.Save();
+                            ds.ShowMessage("Объект удален!");
+                        }
+                        else kategory.Remove(SelectedKategory);
+                    },
+                    (obj) => SelectedKategory != null));
+            }
+        }
+
+        private RelayCommand saveKategory;
+        public RelayCommand SaveKategory
+        {
+            get
+            {
+                return saveKategory ??
+                    (saveKategory = new RelayCommand(obj =>
+                    {
+
+                        var Kategory = db.FindKategory(SelectedKategory.ID_type);
+                        if (Kategory == null)
+                        {
+                            db.AddKategory(SelectedKategory);
+                        }
+                        db.Save();
+                        ds.ShowMessage("Изменения сохранены!");
+                    },
+                    (obj) => (SelectedKategory != null) && SelectedKategory.Name.TrimEnd() != "Новый тип" && SelectedKategory.Capacity != 0 && SelectedKategory.Cost!= 0));
+            }
         }
         private RelayCommand uploadPhoto;
         public RelayCommand UploadPhoto
@@ -31,14 +88,14 @@ namespace Host_v1.ViewModel
                 return uploadPhoto ??
                     (uploadPhoto = new RelayCommand(obj =>
                     {
-                        if (dialog.OpenFileDialog() == true)
+                        if (ds.OpenFileDialog() == true)
                         {
                             try
                             {
-                                SelectedKategory.Photo = dialog.FilePath;
-                                dialog.ShowMessage("Фото загружено!");
+                                SelectedKategory.Photo = ds.FilePath;
+                                ds.ShowMessage("Фото загружено!");
                             }
-                            catch { dialog.ShowMessage("Пожалуйста, попробуйте еще раз!"); }
+                            catch { ds.ShowMessage("Пожалуйста, попробуйте еще раз!"); }
 
                         }
                     }));

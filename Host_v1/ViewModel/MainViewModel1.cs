@@ -21,23 +21,25 @@ namespace Host_v1
 {
     class MainViewModel1 : INotifyPropertyChanged, IRequireViewIdentification
     {
-        public Model1 db;
+        public DbOperations db;
         public ObservableCollection<Uchet> uchets { get; set; }
         private bool[] flag;
         private DispatcherTimer timer;
         private DateTime date;
         public Guid ViewID { get; }
-        public MainViewModel1(Model1 db)
+        private IDialogService dialog;
+        public MainViewModel1(DbOperations db, IDialogService ds)
         {
             this.db = db;
+            dialog = ds;
             date = DateTime.Now;
             ViewID = Guid.NewGuid();
-            uchets = new ObservableCollection<Uchet>(db.Uchet);
-            flag = new bool[db.Number.Count()];
+            uchets = new ObservableCollection<Uchet>(db.GetAllUchet());
+            flag = new bool[db.GetAllNumber().Count()];
             foreach (var obj in uchets)
             {
-                if (DateTime.Today >= obj.Date_start && DateTime.Today <= obj.Date_finish && !flag[obj.Number.ID - 1]) { obj.Number.Status1 = db.Status.Find(2); flag[obj.Number.ID - 1] = true; }
-                else if (obj.Number.Status != db.Status.Find(4)) obj.Number.Status1 = db.Status.Find(1);
+                if (DateTime.Today >= obj.Date_start && DateTime.Today <= obj.Date_finish && !flag[obj.Number.ID - 1]) { obj.Number.Status1 = db.FindStatus(2); flag[obj.Number.ID - 1] = true; }
+                else if (obj.Number.Status != db.FindStatus(4)) obj.Number.Status1 = db.FindStatus(1);
             }            
             timer = new DispatcherTimer(); 
             timer.Tick += new EventHandler(timerTick);
@@ -48,14 +50,14 @@ namespace Host_v1
         {
             if (DateTime.Now.Day != date.Day)
             {        
-                for (int i=0;i< db.Number.Count(); i++)
+                for (int i=0;i< db.GetAllNumber().Count(); i++)
                 {
                     flag[i] = false;
                 }
                 foreach (var obj in uchets)
                 {
-                   if (DateTime.Today >= obj.Date_start && DateTime.Today <= obj.Date_finish && !flag[obj.Number.ID - 1]) { obj.Number.Status1 = db.Status.Find(2); flag[obj.Number.ID - 1] = true; }
-                   else if (obj.Number.Status != db.Status.Find(4)) obj.Number.Status1 = db.Status.Find(1);
+                   if (DateTime.Today >= obj.Date_start && DateTime.Today <= obj.Date_finish && !flag[obj.Number.ID - 1]) { obj.Number.Status1 = db.FindStatus(2); flag[obj.Number.ID - 1] = true; }
+                   else if (obj.Number.Status != db.FindStatus(4)) obj.Number.Status1 = db.FindStatus(1);
                 }
             }
   
@@ -71,7 +73,7 @@ namespace Host_v1
                     (openServiceView = new RelayCommand(obj =>
                     {
                         ServiceView l = new ServiceView();
-                        l.DataContext=new ServiceViewModel(db);
+                        l.DataContext=new ServiceViewModel(db, dialog);
                         l.ShowDialog();
                     }));
             }
@@ -87,7 +89,7 @@ namespace Host_v1
                     (openUchetView = new RelayCommand(obj =>
                     {
                         UchetView l = new UchetView();
-                        l.DataContext = new UchetViewModel(db);
+                        l.DataContext = new UchetViewModel(db, dialog);
                         l.ShowDialog();
                     }));
             }
@@ -117,7 +119,7 @@ namespace Host_v1
                     (openNumbersView = new RelayCommand(obj =>
                     {
                         NumbersView l = new NumbersView();
-                        l.DataContext = new NumbersViewModel(db);
+                        l.DataContext = new NumbersViewModel(db, dialog);
                         l.ShowDialog();
                     }));
             }
@@ -131,7 +133,7 @@ namespace Host_v1
                     (openPayView = new RelayCommand(obj =>
                     {
                         PayView l = new PayView();
-                        l.DataContext = new PayViewModel(db);
+                        l.DataContext = new PayViewModel(db, dialog);
                         l.ShowDialog();
                     }));
             }
@@ -145,7 +147,7 @@ namespace Host_v1
                     (openLogView = new RelayCommand(obj =>
                     {
                         LogView l = new LogView();
-                        l.DataContext = new LogViewModel(db);
+                        l.DataContext = new LogViewModel(db, dialog);
                         l.ShowDialog();
                     }));
             }
@@ -159,11 +161,10 @@ namespace Host_v1
                 return openClientView ??
                     (openClientView = new RelayCommand(obj =>
                     {
-                        AddClient f = new AddClient();
-                        ClientViewModel vm = new ClientViewModel(db);
-                        ViewShower.Show(0, vm);
-                        //f.DataContext = new ClientViewModel(db);
-                        //f.ShowDialog();
+                        ClientView f = new ClientView();
+                    
+                        f.DataContext = new ClientViewModel(db,dialog);
+                        f.ShowDialog();
                     }));
             }
         }
@@ -177,7 +178,7 @@ namespace Host_v1
                     (openTypeNumberView = new RelayCommand(obj =>
                     {
                        TypeNumber t = new TypeNumber();
-                        t.DataContext = new TypeNumberViewModel(db, new DefaultDialogService());
+                        t.DataContext = new TypeNumberViewModel(db, dialog);
                         t.ShowDialog();
                     }));
             }
@@ -192,7 +193,7 @@ namespace Host_v1
                     (openReserveView = new RelayCommand(obj =>
                     {
                         ReserveView vm = new ReserveView();
-                        vm.DataContext = new ReserveViewModel(db);
+                        vm.DataContext = new ReserveViewModel(db,dialog);
                         vm.ShowDialog();
                     }));
             }
