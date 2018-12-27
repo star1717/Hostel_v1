@@ -1,4 +1,4 @@
-﻿using ClassLibrary1;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,21 +20,7 @@ namespace Host_v1
         {       
             return db.Clients;
         }
-        //void ToClient(ClientModel clientMod)
-        //{
-        //    Client client = new Client
-        //    {
-        //        FIO = clientMod.Fio,
-        //        birth = clientMod.Birth,
-        //        number = clientMod.Number,
-        //        passport = clientMod.Passport,
-        //        ID_client = clientMod.ID_client,
-        //        Log = clientMod.Log,
-        //        Pay = clientMod.Pay
 
-
-        //    };
-        //}
         public  DbSet<Kategory> GetAllKategory()
         {
             return db.Kategory;
