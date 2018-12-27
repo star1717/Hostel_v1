@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Host_v1.View"
         mc:Ignorable="d"
-        Title="ReserveView" Height="396" Width="622.623" WindowStartupLocation="CenterScreen">
+        Title="Бронь номера" Height="396" Width="622.623" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0.19"/>
@@ -28,7 +28,30 @@
                 SelectedValuePath="ID_client" HorizontalAlignment="Left" Width="292"/>
             <StackPanel DataContext="{Binding SelectedClient}" HorizontalAlignment="Left"  Width="252" Height="50">
                 <TextBlock Foreground="White" Text="Номер паспорта:" TextWrapping="Wrap" Height="23" />
-                <TextBlock TextWrapping="Wrap" Text="{Binding Passport, UpdateSourceTrigger=PropertyChanged}" Height="23" Foreground="White"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Passport, UpdateSourceTrigger=PropertyChanged}" Height="23" Foreground="White">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                            <Style.Resources>
+                                <VisualBrush x:Key="CueBannerBrush"  AlignmentX="Left" Stretch="None">
+                                    <VisualBrush.Visual>
+                                        <Label Content="Выберите клиента" Foreground="LightGray" />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Style.Resources>
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="{x:Null}">
+                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter Property="Background" Value="White" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="171"  VerticalAlignment="Top" Width="254" Margin="1,43,0,0" Grid.Column="1">
@@ -68,7 +91,7 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <StackPanel DataContext="{Binding uchet}" HorizontalAlignment="Left" Height="100" Margin="10,137,0,0" VerticalAlignment="Top" Width="292">
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="10,137,0,0" VerticalAlignment="Top" Width="292">
             <TextBlock Foreground="White" Text="Дата въезда:" TextWrapping="Wrap" Height="23"/>
             <DatePicker SelectedDate="{Binding date_start}"/>
             <TextBlock Foreground="White" Text="Дата выезда:" TextWrapping="Wrap" Height="23"/>
@@ -80,8 +103,8 @@
             <TextBlock Foreground="White" Text="{Binding SelectedWorker.Fio}" IsEnabled="False" Height="23" FontWeight="Bold" />
 
         </StackPanel>
-        <Button Command="{Binding Reserve}" Content="Забронировать" HorizontalAlignment="Left" Margin="214,0,0,25" Width="189" Grid.ColumnSpan="2" Height="29" VerticalAlignment="Bottom"/>
-        <TextBlock Text="{Binding text}" HorizontalAlignment="Center" Margin="88,0,63,59" Foreground="#FFFD0000" FontSize="14" RenderTransformOrigin="0.5,0.5" Width="429" Grid.ColumnSpan="2" TextAlignment="Center" Height="20" VerticalAlignment="Bottom"/>
+        <Button Command="{Binding Reserve}" Content="Забронировать" HorizontalAlignment="Left" Margin="214,0,0,20" Width="189" Grid.ColumnSpan="2" Height="39" VerticalAlignment="Bottom" BorderBrush="#FF000078" FontWeight="Bold"/>
+        <TextBlock Text="{Binding text}" HorizontalAlignment="Center" Margin="108,0,78,73" Foreground="#FFFD0000" FontSize="14" RenderTransformOrigin="0.5,0.5" Width="429" Grid.ColumnSpan="2" TextAlignment="Center" Height="20" VerticalAlignment="Bottom"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,242,0,0" TextWrapping="Wrap" Text="Стоимость проживания:" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="158,242,0,0" TextWrapping="Wrap" Text="{Binding Sum}" VerticalAlignment="Top" Width="35" Height="16" FontWeight="Bold"/>
     </Grid>

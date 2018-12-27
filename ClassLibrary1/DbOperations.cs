@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClassLibrary1;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -15,9 +17,24 @@ namespace Host_v1
             db = new Model1();
         }
         public DbSet<Client> GetAllClient()
-        {
+        {       
             return db.Clients;
         }
+        //void ToClient(ClientModel clientMod)
+        //{
+        //    Client client = new Client
+        //    {
+        //        FIO = clientMod.Fio,
+        //        birth = clientMod.Birth,
+        //        number = clientMod.Number,
+        //        passport = clientMod.Passport,
+        //        ID_client = clientMod.ID_client,
+        //        Log = clientMod.Log,
+        //        Pay = clientMod.Pay
+
+
+        //    };
+        //}
         public  DbSet<Kategory> GetAllKategory()
         {
             return db.Kategory;

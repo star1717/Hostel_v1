@@ -88,10 +88,10 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <!--<DatePicker SelectedDate="{Binding }" Margin="-10,179,390,147" Grid.ColumnSpan="2"/>
-        <TextBlock Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата выселения:" Margin="-10,203,10,124"/>
-        <DatePicker SelectedDate="{Binding }" Margin="-10,226,390,100" Grid.ColumnSpan="2"/>-->
-        <Button Command="{Binding PayAccommodation}" Content="Оплатить" HorizontalAlignment="Left" Margin="313,125,0,0" VerticalAlignment="Top" Width="220" Height="36" Grid.Row="1"/>
+
+        <Button Command="{Binding PayAccommodation}" Content="Оплатить" HorizontalAlignment="Left" Margin="283,121,0,0" VerticalAlignment="Top" Width="220" Height="36" Grid.Row="1" RenderTransformOrigin="0.338,0.418" FontWeight="Bold" BorderBrush="#FF001C46">
+        
+        </Button>
         <CheckBox IsChecked="{Binding ChekUchet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="checkBox1" Foreground="White" Content="Оплатить проживание" HorizontalAlignment="Left" Margin="11,50,0,0" VerticalAlignment="Top" Height="15" Width="144"/>
         <CheckBox IsChecked="{Binding ChekService}" x:Name="checkBox2" Foreground="White" Content="Оплатить дополнительные услуги" Margin="417,50,0,0" VerticalAlignment="Top" Height="15" HorizontalAlignment="Left" Width="206"/>
         <TextBlock HorizontalAlignment="Left" Margin="11,172,0,0" Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата оплаты:" VerticalAlignment="Top" Width="372" Grid.RowSpan="2"/>
@@ -115,7 +115,7 @@
         <Label Foreground="White" Content="Стоимость услуг: " Margin="421,22,0,0" VerticalAlignment="Top" Height="26" Grid.Row="1" HorizontalAlignment="Left" Width="164"/>
         <Label Foreground="White" Content="Сумма оплаты: " Margin="421,48,0,0" VerticalAlignment="Top" Height="26" Grid.Row="1" HorizontalAlignment="Left" Width="164"/>
         <ComboBox Margin="417,126,0,0" VerticalAlignment="Top"          
-                ItemsSource="{Binding SelectedClient.Log, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding SelectedClient.Log1, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 IsSynchronizedWithCurrentItem="True"                     
                 DisplayMemberPath="Service1.Name"

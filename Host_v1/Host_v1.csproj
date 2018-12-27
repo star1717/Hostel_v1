@@ -104,7 +104,6 @@
     <Compile Include="ViewModel\TypeNumberViewModel.cs" />
     <Compile Include="ViewModel\UchetViewModel.cs" />
     <Compile Include="ViewModel\WorkerViewModel.cs" />
-    <Compile Include="Helpers\ViewShower.cs" />
     <Compile Include="View\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>

@@ -27,8 +27,6 @@ namespace Host_v1.ViewModel
         public ObservableCollection<Status> status { get; set; }
         private Status selectedStatus;
 
-        public Uchet uchet { get; set; }
-
         public ObservableCollection<Uchet> uchets { get; set; }
         //private bool[] flag;
 
@@ -55,12 +53,35 @@ namespace Host_v1.ViewModel
             kategory = new ObservableCollection<Kategory>(db.GetAllKategory());
             numbers = new ObservableCollection<Number>(db.GetAllNumber());
             status = new ObservableCollection<Status>(db.GetAllStatus());
-            uchet = new Uchet() { Date_start=DateTime.Now, Date_finish=DateTime.Now};
+            date_start = DateTime.Now;
+            date_finish =DateTime.Now;
             worker = new ObservableCollection<Worker>(db.GetAllWorker());
             uchets = new ObservableCollection<Uchet>(db.GetAllUchet());
             SelectedWorker = db.FindWorker(User.ID_worker);
         }
-
+        private DateTime _date_start;
+        public DateTime date_start
+        {
+            get { return _date_start; }
+            set
+            {
+                _date_start = value;
+                SetSum();
+                OnPropertyChanged("date_start");
+            
+            }
+        }
+        private DateTime _date_finish;
+        public DateTime date_finish
+        {
+            get { return _date_finish; }
+            set
+            {
+                _date_finish = value;
+                SetSum();
+                OnPropertyChanged("date_finish");
+            }
+        }
         private RelayCommand reserve;
         public RelayCommand Reserve
         {
@@ -72,14 +93,14 @@ namespace Host_v1.ViewModel
                         try
                         {
                             var items = db.GetAllUchet().Where(u => u.ID_number_FK == SelectedNumber.ID);
-                            foreach (var item in items) { if (item.date_start <= uchet.date_start && uchet.date_start <= item.date_finish) { text = "Выбранный вами номер забронирован на этот период!"; return; } }
+                            foreach (var item in items) { if (item.date_start <= date_start && date_start <= item.date_finish) { text = "Выбранный вами номер забронирован на этот период!"; return; } }
                             if (SelectedClient != null)
                             {
                                 if (SelectedNumber != null)
                                 {
                                     if (SelectedWorker != null)
                                     {
-                                        if (uchet.Date_start < uchet.Date_finish)
+                                        if (date_start < date_finish)
                                         {
                                             var client = db.FindClient(SelectedClient.ID_client);
                                             var number = db.FindNumber(SelectedNumber.ID_number);
@@ -89,10 +110,10 @@ namespace Host_v1.ViewModel
                                                 ID_client_FK = client.ID_client,
                                                 ID_number_FK = number.ID_number,
                                                 ID_worker_FK = worker.ID_worker,
-                                                Date_start = uchet.date_start,
-                                                Date_finish = uchet.date_finish
+                                                Date_start = date_start,
+                                                Date_finish = date_finish
                                             };
-                                            if (uchet.Date_start <= DateTime.Today && DateTime.Today <= uchet.Date_finish) number.Status1 = db.FindStatus(2);
+                                            if (date_start <= DateTime.Today && DateTime.Today <= date_finish) number.Status1 = db.FindStatus(2);
                                             db.AddUchet(uchett);
                                             db.Save();
                                             text = "";
@@ -159,12 +180,21 @@ namespace Host_v1.ViewModel
             {
                 selectedKatgory = value;
                 Numbers = new ObservableCollection<Number>(numbers.Where(u => u.Kategory == SelectedKatgory && u.Status == SelectedStatus).ToList());
-                Sum = SelectedKatgory.Cost * (uchet.date_finish - uchet.date_start).Days;
-                if (Sum == 0) Sum = SelectedKatgory.Cost;
+                SetSum();
                 OnPropertyChanged("SelectedKatgory");
                 OnPropertyChanged("Sum");
 
             }
+        }
+        private void SetSum()
+        {
+            if (SelectedKatgory != null)
+            {
+              Sum = SelectedKatgory.Cost * (date_finish - date_start).Days;
+              if (Sum == 0) Sum = SelectedKatgory.Cost;
+                OnPropertyChanged("Sum");
+            }
+  
         }
         public Client SelectedClient
         {

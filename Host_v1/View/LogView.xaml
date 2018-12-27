@@ -108,11 +108,11 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата оплаты:"/>
+            <TextBlock Height="23" Foreground="White" TextWrapping="Wrap" Text="Дата оказания услуги:"/>
             <DatePicker SelectedDate="{Binding Date}"/>
         </StackPanel>
 
-        <ListBox ItemContainerStyle="{StaticResource Lststyle}" Grid.Column="0" ItemsSource="{Binding log}" SelectedItem="{Binding SelectedLog, Mode=TwoWay}" Margin="0,-41,144,63">
+        <ListBox ItemContainerStyle="{StaticResource Lststyle}" Grid.Column="0" ItemsSource="{Binding log}" SelectedItem="{Binding SelectedLog, Mode=TwoWay}" Margin="0,-41,0,63" HorizontalAlignment="Left" Width="363">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>

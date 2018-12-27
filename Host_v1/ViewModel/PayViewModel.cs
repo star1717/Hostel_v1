@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -145,6 +146,18 @@ namespace Host_v1.ViewModel
             }
           
         }
+        public void SaveChek()
+        {
+            if (ds.SaveFileDialog() == true)
+            {
+                using (StreamWriter sw = new StreamWriter(ds.FilePath, true))
+                {
+                    sw.WriteLine("Клиент:{0}\r\nПаспорт: {1}\r\nДата оплаты: {2}\r\n|----------------------------|\r\n Стоимость проживания: {3} ₽\r\n|----------------------------|\r\n Стоимость услуг: {4} ₽\r\n|----------------------------|\r\n Сумма оплаты: {5} ₽\r\n|----------------------------|\r\n", SelectedClient.Fio, SelectedClient.Passport,SelectedLog.Date, CostUchet, CostLog, Sum);
+                    sw.Close();
+                    ds.ShowMessage("Чек сохранен!");
+                }
+            }
+        }
         private Uchet selectedUchet;
         public Uchet SelectedUchet
         {
@@ -186,7 +199,7 @@ namespace Host_v1.ViewModel
                               db.AddPay(pay);
                               SelectedUchet.Pay1=pay;
                               db.Save();
-                              ds.ShowMessage("Проживание оплачено!");
+                             
         
                         }
                         if (ChekService)
@@ -203,7 +216,7 @@ namespace Host_v1.ViewModel
                                     item.Pay = pay;
                                 }
                                 db.Save();
-                                ds.ShowMessage("Все услуги оплачены!");
+                              
                             }
                             else
                             {
@@ -214,9 +227,11 @@ namespace Host_v1.ViewModel
                                 db.AddPay(pay);
                                 SelectedLog.Pay = pay;
                                 db.Save();
-                                ds.ShowMessage("Услуга оплачена!");
+                              
                             }
                         }
+                        if (ds.ShowMessageOKCancel("Оплачено! Сохранить чек?")) SaveChek();
+
                     },obj=>CanExecute()));
             }
         }

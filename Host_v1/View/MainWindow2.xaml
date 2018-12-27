@@ -26,7 +26,7 @@
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD2D5EC"/>
-                    <GradientStop Color="#FF0017FF"/>
+                    <GradientStop Color="#FF000FAA"/>
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>

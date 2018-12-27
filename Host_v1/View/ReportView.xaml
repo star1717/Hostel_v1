@@ -69,7 +69,7 @@
         <Label Content="С" Grid.Column="1" HorizontalAlignment="Left" Margin="3,325,0,0" VerticalAlignment="Top" Height="26" Width="17"/>
         <Label Content="Выберете период, за который нужно сгенерировать отчет: " HorizontalAlignment="Left" Margin="1,295,0,0" VerticalAlignment="Top" Height="26" Width="335" Grid.Column="1"/>
         <Label Content="по" Grid.Column="1" HorizontalAlignment="Left" Margin="157,327,0,0" VerticalAlignment="Top" Height="26" Width="33"/>
-        <Button Command="{Binding ReportCommand}" Content="Сгенерировать отчет" Grid.Column="1" HorizontalAlignment="Left" Margin="354,304,0,0" VerticalAlignment="Top" Width="216" Height="49"/>
+        <Button Command="{Binding ReportCommand}" Content="Сгенерировать отчет" Grid.Column="1" HorizontalAlignment="Left" Margin="354,304,0,0" VerticalAlignment="Top" Width="216" Height="49" FontWeight="Bold" BorderBrush="#FF020253"/>
         <Label Foreground="Blue" Content="Количество постояльцев: " Grid.Column="1" HorizontalAlignment="Left" Margin="0,271,0,0" VerticalAlignment="Top" Background="#00000000"/>
         <Label Foreground="Blue" Content="{Binding Count}" Grid.Column="1" HorizontalAlignment="Left" Margin="152,271,0,0" VerticalAlignment="Top"/>
 

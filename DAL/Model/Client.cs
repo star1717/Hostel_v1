@@ -102,6 +102,22 @@ namespace Host_v1
             }
             
         }
+        [NotMapped]
+        private ObservableCollection<Log> Logs;
+        [NotMapped]
+        public ObservableCollection<Log> Log1
+        {
+            get
+            {
+                Logs = new ObservableCollection<Log>();
+                foreach (var it in Log)
+                {
+                    if (it.Pay == null) Logs.Add(it);
+                }
+                return Logs;
+            }
+
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
